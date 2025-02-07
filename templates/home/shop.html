@@ -100,7 +100,7 @@
                                                 <span class="woosq-btn-icon woosq-icon-1"></span>
                                             </button>
                                         </div>
-                                        <a href="" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
+                                        <a href="{% url 'shop_view' product.id %}" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
                                             {% for image in product.images.all|slice:":2" %}
                                             {% if forloop.counter == 1 %}
                                                 <img width="242" height="242" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" />
@@ -114,7 +114,7 @@
                                 </div>
                                 <div class="product-details content-bg entry-content-wrap">
                                     <h2 class="woocommerce-loop-product__title">
-                                        <a href="" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{product.name}}</a>
+                                        <a href="{% url 'shop_view' product.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{product.name}}</a>
                                     </h2>
                                     <span class="price">
                                         <span class="woocommerce-Price-amount amount">
@@ -145,16 +145,18 @@
                                     </div>
                                     <div class="wpc-filter-content">
                                         <ul class="wpc-filters-ul-list ">
-                                            {% for product in product_categorys %}
-                                            <li class="wpc-checkbox-item wpc-term-item">
-                                                <div class="wpc-term-item-content-wrapper">
-                                                    <input type="checkbox">
-                                                        <label >
-                                                            <a href="">{{product.name}}</a>
+                                            <form method="GET" action="{% url 'shop' %}">
+                                                {% for product in product_categorys %}
+                                                <li class="wpc-checkbox-item wpc-term-item">
+                                                    <div class="wpc-term-item-content-wrapper">
+                                                        <input type="checkbox" name="category_id" value="{{ product.id }}" {% if product.id in selected_categories %}checked{% endif %} onchange="this.form.submit()">
+                                                        <label>
+                                                            {{ product.name }}
                                                         </label>
-                                                </div>
-                                            </li>
-                                            {% endfor %}
+                                                    </div>
+                                                </li>
+                                                {% endfor %}
+                                            </form>
                                         </ul>                  
                                     </div>
                                 </div>

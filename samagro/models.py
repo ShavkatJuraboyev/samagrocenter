@@ -1,6 +1,6 @@
 from django.db import models
 from django.templatetags.static import static
-from django.utils.text import slugify
+from ckeditor_uploader.fields import RichTextUploadingField 
 # Create your models here.
 
 class ProductCategory(models.Model):
@@ -51,6 +51,7 @@ class Products(models.Model):
     images = models.ManyToManyField(ProductPicture, blank=True, verbose_name="Maxsulot rasmlari")
     price = models.FloatField(null=True, blank=True, verbose_name="Maxsulot narxi")
     text = models.TextField(null=True, blank=True, verbose_name="Maxsulot haqida ma'lumot")
+    content = RichTextUploadingField(config_name='extends', verbose_name="Maxsulot haqida umumiy ma'lumot", null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan vaqt")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="O‘zgartirilgan vaqt")

@@ -45,7 +45,7 @@
                             <li id="menu-item-{{product.id}}" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-{{product.id}}">
                                 {% if product.children %}
                                 <div class="drawer-nav-drop-wrap">
-                                    <a href="">{{product.name}}</a>
+                                    <a href="{% url 'shop' %}?category_id={{ product.id }}">{{product.name}}</a>
                                     <button class="drawer-sub-toggle" data-toggle-duration="10" data-toggle-target="#menu-nav_menu-4 .menu-item-{{product.id}} &gt; .sub-menu" aria-expanded="false">
                                         <span class="base-svg-iconset">
                                             <svg aria-hidden="true" class="base-svg-icon base-arrow-down-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
                                     <li id="menu-item-{{child.id}}" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-{{child.id}}">
                                         {% if child.children %}
                                         <div class="drawer-nav-drop-wrap">
-                                            <a href="240v-power-tools/">{{child.name}}</a>
+                                            <a href="{% url 'shop' %}?category_id={{ child.id }}">{{child.name}}</a>
                                             <button class="drawer-sub-toggle" data-toggle-duration="10" data-toggle-target="#menu-nav_menu-4 .menu-item-{{child.id}} &gt; .sub-menu" aria-expanded="false">
                                                 <span class="base-svg-iconset">
                                                     <svg aria-hidden="true" class="base-svg-icon base-arrow-down-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -71,18 +71,14 @@
                                         <ul class="sub-menu">
                                             {% for subchild in child.children.all %}
                                             <li id="menu-item-{{subchild.id}}" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-12349">
-                                                <a href="">{{subchild.name}}</a>
+                                                <a href="{% url 'shop' %}?category_id={{ subchild.id }}">{{subchild.name}}</a>
                                             </li>
                                             {% endfor %}
                                         </ul>
-                                        {% else %}
-                                        <a href="#">{{child.name}}</a>
                                         {% endif %}
                                     </li>
                                     {% endfor %}
                                 </ul>
-                                {% else %}
-                                <a href="#">{{product.name}}</a>
                                 {% endif %}
                             </li>
                             {% endfor %}

@@ -821,21 +821,29 @@
                                                                                     <div class="elementor-shortcode">
                                                                                         <div class="woo_categories_grid woo_categories_block">
                                                                                             <div id="6_category_grid" class="grid-cols grid-lg-col-6">
-                                                                                                {% for product_category in product_categorys %}
-                                                                                                <div class="cat-outer-block style-1">
-                                                                                                    <div class="cat-inner-block">
-                                                                                                        <div class="cat-img-block">
-                                                                                                            <a class="cat-img" href="#" title="{{product_category.name}}">
-                                                                                                                <img src="{{product_category.get_produc_category_img}}" title="{{product_category.name}}" alt="{{product_category.name}}" height="71" width="79" />
-                                                                                                            </a>
-                                                                                                        </div>
-                                                                                                        <div class="cat_description">
-                                                                                                            <a class="cat_name" href="#" title="{{product_category.name}}">{{product_category.name}}
-                                                                                                                <span class="cat-count">(13)</span></a>
+                                                                                                {% for item in categories_with_counts %}
+                                                                                                {% with product_category=item.category product_count=item.product_count %}
+                                                                                                    <div class="cat-outer-block style-1">
+                                                                                                        <div class="cat-inner-block">
+                                                                                                            <div class="cat-img-block">
+                                                                                                                <a class="cat-img" href="{% url 'shop' %}?category_id={{ product_category.id }}" title="{{ product_category.name }}">
+                                                                                                                    <img src="{{ product_category.get_produc_category_img }}" 
+                                                                                                                         title="{{ product_category.name }}" 
+                                                                                                                         alt="{{ product_category.name }}" 
+                                                                                                                         height="71" width="79" />
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                            <div class="cat_description">
+                                                                                                                <a class="cat_name" href="{% url 'shop' %}?category_id={{ product_category.id }}" title="{{ product_category.name }}">
+                                                                                                                    {{ product_category.name }}
+                                                                                                                    <span class="cat-count">({{ product_count }})</span>  <!-- Mahsulotlar sonini chiqaramiz -->
+                                                                                                                </a>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                                {% endfor %}
+                                                                                                {% endwith %}
+                                                                                            {% endfor %}
+                                                                                            
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>

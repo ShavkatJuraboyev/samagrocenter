@@ -1,0 +1,417 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+
+<body class="product-template-default single single-product postid-11284 wp-custom-logo wp-embed-responsive theme-avanam woocommerce woocommerce-page woocommerce-js footer-on-bottom hide-focus-outline link-style-no-underline content-title-style-normal content-width-normal content-style-unboxed content-vertical-padding-show non-transparent-header mobile-non-transparent-header base-elementor-colors product-tab-style-center product-variation-style-vertical base-cart-button-normal elementor-default elementor-kit-7">
+
+    <div id="wrapper" class="site wp-site-blocks">
+        {% include 'base/header.html' %}
+
+        <div id="inner-wrap" class="wrap hfeed bst-clear">
+            <section role="banner" class="entry-hero product-hero-section entry-hero-layout-standard">
+                <div class="entry-hero-container-inner">
+                    <div class="hero-section-overlay"></div>
+                    <div class="hero-container site-container">
+                        <header
+                            class="entry-header product-title title-align-left title-tablet-align-left title-mobile-align-left">
+                            <nav id="base-breadcrumbs" aria-label="Breadcrumbs" class="base-breadcrumbs">
+                                <div class="base-breadcrumb-container">
+                                    <span>
+                                        <a href="/" class="base-bc-home">
+                                            <span>Bosh saxifa</span>
+                                        </a>
+                                    </span> 
+                                    <span class="bc-delimiter">/</span> 
+                                    <span>
+                                        <a href="{% url 'shop' %}">
+                                            <span>Do'kon</span>
+                                        </a>
+                                    </span> 
+                                    <span class="bc-delimiter">/</span> 
+                                    <span> 
+                                        <a href="{% url 'shop' %}?category_id={{ product.productcategory.id }}"><span>{{ product.productcategory }}</span></a>
+                                    </span> 
+                                    <span class="bc-delimiter">/</span> 
+                                    <span class="base-bread-current">
+                                        {{ product.name }}
+                                    </span>
+                                </div>
+                            </nav>
+                        </header><!-- .entry-header -->
+                    </div>
+                </div>
+            </section><!-- .entry-hero -->
+            <div id="primary" class="content-area">
+                <div class="content-container site-container">
+                    <main id="main" class="site-main" role="main">
+                        <div class="entry content-bg entry-content-wrap product type-product post-11284 status-publish first instock  product_cat-air-tools product_cat-cordless-kits product_cat-cutting-tools product_cat-nailers product_cat-power-tools  product_cat-pressure-washers product_cat-safety-equipment product_cat-safety-workwear product_cat-staple-guns  has-post-thumbnail featured shipping-taxable purchasable product-type-variable has-default-attributes">
+                            
+                            <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images  woocommerce-product-gallery--columns-4 images gallery-has-thumbnails">
+                                <a href="#" class="woocommerce-product-gallery__trigger">
+                                    <img draggable="false" role="img" class="emoji" alt="🔍" src="https://s.w.org/images/core/emoji/15.0.3/svg/1f50d.svg">
+                                </a>
+                                <div class="flex-viewport" style="overflow: hidden; position: relative; height: 401.1px;">
+                                    <div class="woocommerce-product-gallery__wrapper">
+                                        <div class="woocommerce-product-gallery__image flex-active-slide">
+                                            <a href="">
+                                                <img width="700" height="700" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a1-11-700x700.jpg" class="wp-post-image" alt="" title="a1" >
+                                            </a>
+                                            <img alt="" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a1-11.jpg" class="zoomImg">
+                                        </div>
+                                        <div class="woocommerce-product-gallery__image">
+                                            <a href="">
+                                                <img width="700" height="700" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a2-11-700x700.jpg" class="" alt="" title="a2">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ol class="flex-control-nav flex-control-thumbs owl-carousel owl-theme" style="opacity: 1; display: block;">
+                                    <div class="owl-wrapper-outer">
+                                        <div class="owl-wrapper" style="width: 456px; left: 0px; display: block; transition: all; transform: translate3d(0px, 0px, 0px);">
+                                            <div class="owl-item" style="width: 114px;">
+                                                <li>
+                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a1-11-100x100.jpg"  class="flex-active" draggable="false" width="100" height="100">
+                                                </li>
+                                            </div>
+                                            <div class="owl-item" style="width: 114px;">
+                                                <li>
+                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a2-11-100x100.jpg" draggable="false" width="100" height="100">
+                                                </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="owl-controls clickable" style="display: none;">
+                                        <div class="owl-buttons">
+                                            <div class="owl-prev">prev</div>
+                                            <div class="owl-next">next</div>
+                                        </div>
+                                    </div>
+                                </ol>
+                            </div>
+
+                            <div class="summary entry-summary">
+                                <div class="single-product-category">
+                                    <a href="{% url 'shop' %}?category_id={{ product.productcategory.id }}" class="product-single-category  single-category">
+                                        {{ product.productcategory }}
+                                    </a>
+                                </div>
+                                <h1 class="product_title entry-title">{{ product.name }}</h1>
+                                <div class="star-rating" title="Rated 4.50 out of 5">
+                                    <span style="width:90%">
+                                        <strong class="rating">4.50</strong> 
+                                        out of 5
+                                    </span>
+                                </div>
+                                <p class="price">
+                                    <span class="woocommerce-Price-amount amount">
+                                        <bdi> {{ product.price }}-so'm </bdi>
+                                    </span>
+                                </p>
+                                <div class="woocommerce-product-details__short-description">
+                                    <p>{{ product.text }}</p>
+                                </div>
+
+                                <form class="variations_form cart" action="" method="post">
+                                    <div class="single_variation_wrap">
+                                        <div class="woocommerce-variation-add-to-cart variations_button ">
+                                            <div class="quantity spinners-added">
+                                                <input type="button" value="-" class="minus">
+                                                <input type="number" id="quantity_67a64ceccce49" class="input-text qty text" name="quantity" value="1" aria-label="Product quantity" size="4" min="1" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+                                                <input type="button" value="+" class="plus">
+                                            </div>
+                                            <button type="submit" class=" button alt">Savatchaga qo'shish</button>
+                                            <button class="woosw-btn woosw-btn-11284 woosw-btn-has-icon woosw-btn-icon-only">
+                                                <span class="woosw-btn-icon woosw-icon-5"></span>
+                                            </button>
+                                            <button class="woosc-btn woosc-btn-11284 woosc-btn-has-icon woosc-btn-icon-only">
+                                                <span class="woosc-btn-icon woosc-icon-13"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div class="single-product-extras">
+                                    <p><strong>Free shipping on orders over $50!</strong></p>
+                                    <ul>
+                                        <li>
+                                            <span class="base-svg-iconset svg-baseline">
+                                                <svg class="base-svg-icon base-checkbox-alt-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                    <title>Check Mark</title>
+                                                    <path d="M13.739 3.061l-5.5-3c-0.075-0.041-0.157-0.061-0.239-0.061s-0.165 0.020-0.239 0.061l-5.5 3c-0.161 0.088-0.261 0.256-0.261 0.439v4c0 2.2 0.567 3.978 1.735 5.437 0.912 1.14 2.159 2.068 4.042 3.010 0.070 0.035 0.147 0.053 0.224 0.053s0.153-0.018 0.224-0.053c1.883-0.942 3.13-1.87 4.042-3.010 1.167-1.459 1.735-3.238 1.735-5.437l0-4c0-0.183-0.1-0.351-0.261-0.439zM6.5 11.296l-2.796-2.796 0.796-0.795 2 2 5-5 0.796 0.795-5.795 5.795z">
+                                                    </path>
+                                                </svg>
+                                            </span> Satisfaction Guaranteed
+                                        </li>
+                                        <li> 
+                                            <span class="base-svg-iconset svg-baseline">
+                                                <svg class="base-svg-icon base-checkbox-alt-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                    <title>Check Mark</title>
+                                                    <path d="M13.739 3.061l-5.5-3c-0.075-0.041-0.157-0.061-0.239-0.061s-0.165 0.020-0.239 0.061l-5.5 3c-0.161 0.088-0.261 0.256-0.261 0.439v4c0 2.2 0.567 3.978 1.735 5.437 0.912 1.14 2.159 2.068 4.042 3.010 0.070 0.035 0.147 0.053 0.224 0.053s0.153-0.018 0.224-0.053c1.883-0.942 3.13-1.87 4.042-3.010 1.167-1.459 1.735-3.238 1.735-5.437l0-4c0-0.183-0.1-0.351-0.261-0.439zM6.5 11.296l-2.796-2.796 0.796-0.795 2 2 5-5 0.796 0.795-5.795 5.795z">
+                                                    </path>
+                                                </svg>
+                                            </span> No Hassle Refunds
+                                        </li>
+                                        <li>
+                                            <span class="base-svg-iconset svg-baseline">
+                                                <svg class="base-svg-icon base-checkbox-alt-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                    <title>Check Mark</title>
+                                                    <path d="M13.739 3.061l-5.5-3c-0.075-0.041-0.157-0.061-0.239-0.061s-0.165 0.020-0.239 0.061l-5.5 3c-0.161 0.088-0.261 0.256-0.261 0.439v4c0 2.2 0.567 3.978 1.735 5.437 0.912 1.14 2.159 2.068 4.042 3.010 0.070 0.035 0.147 0.053 0.224 0.053s0.153-0.018 0.224-0.053c1.883-0.942 3.13-1.87 4.042-3.010 1.167-1.459 1.735-3.238 1.735-5.437l0-4c0-0.183-0.1-0.351-0.261-0.439zM6.5 11.296l-2.796-2.796 0.796-0.795 2 2 5-5 0.796 0.795-5.795 5.795z">
+                                                    </path>
+                                                </svg>
+                                            </span> Secure Payments
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="product_meta">
+                                    <span class="posted_in">Kategoriyalar: 
+                                        {% for products in product_categorys %}
+                                        <a href="{% url 'shop' %}?category_id={{ products.id }}">{{products.name}}</a>,
+                                        {% endfor %}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="woocommerce-tabs wc-tabs-wrapper">
+                                <ul class="tabs wc-tabs" role="tablist">
+                                    <li class="description_tab active" id="tab-title-description" role="tab" aria-controls="tab-description">
+                                        <a href="#tab-description"> Tavsif </a>
+                                    </li>
+                                    <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
+                                        <a href="#tab-reviews"> Sharhlar (2)</a>
+                                    </li>
+                                </ul>
+
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab" id="tab-description" role="tabpanel" aria-labelledby="tab-title-description">
+                                    {{product.content|safe}}
+                                </div>
+
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
+                                    id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews" style="display: none;">
+                                    <div id="reviews" class="woocommerce-Reviews">
+                                        <div id="comments">
+                                            <h2 class="woocommerce-Reviews-title">
+                                                Maxsulot nomi uchun 2 ta sharh</span>
+                                            </h2>
+                                            <ol class="commentlist">
+                                                <li class="review even thread-even depth-1" id="li-comment-11">
+                                                    <div id="comment-11" class="comment_container">
+                                                        <img alt="" src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60" loading="lazy" decoding="async">
+                                                        <div class="comment-text">
+                                                            <div class="star-rating" title="Rated 5 out of 5">
+                                                                <span style="width:100%">
+                                                                    <strong class="rating">5</strong> out of 5
+                                                                </span>
+                                                            </div>
+                                                            <p class="meta">
+                                                                <strong class="woocommerce-review__author">
+                                                                    admin
+                                                                </strong>
+                                                                <span class="woocommerce-review__dash">–</span> 
+                                                                <time class="woocommerce-review__published-date" datetime="2023-06-19T11:38:30+00:00">June 19, 2023</time>
+                                                            </p>
+
+                                                            <div class="description">
+                                                                <p>There are many variations of passages of Lorem Ipsum
+                                                                    available, but the majority have suffered alteration
+                                                                    in some form, by injected humour, or randomised
+                                                                    words which don\’t look even slightly believable.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li><!-- #comment-## -->
+                                                <li class="review odd alt thread-odd thread-alt depth-1"
+                                                    id="li-comment-12">
+
+                                                    <div id="comment-12" class="comment_container">
+
+                                                        <img alt=""
+                                                            src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g"
+                                                            srcset="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=120&amp;d=mm&amp;r=g 2x"
+                                                            class="avatar avatar-60 photo" height="60" width="60"
+                                                            loading="lazy" decoding="async">
+                                                        <div class="comment-text">
+
+                                                            <div class="star-rating" title="Rated 4 out of 5"><span
+                                                                    style="width:80%"><strong class="rating">4</strong>
+                                                                    out of 5</span></div>
+                                                            <p class="meta">
+                                                                <strong class="woocommerce-review__author">admin
+                                                                </strong>
+                                                                <span class="woocommerce-review__dash">–</span> <time
+                                                                    class="woocommerce-review__published-date"
+                                                                    datetime="2023-06-19T11:38:42+00:00">June 19,
+                                                                    2023</time>
+                                                            </p>
+
+                                                            <div class="description">
+                                                                <p>Various versions have evolved over the years,
+                                                                    sometimes by accident, sometimes on purpose
+                                                                    (injected humour and the like).</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li><!-- #comment-## -->
+                                            </ol>
+                                        </div>
+
+                                        <div id="review_form_wrapper">
+                                            <div id="review_form">
+                                                <div id="respond" class="comment-respond">
+                                                    <span id="reply-title" class="comment-reply-title">Sharh qo'shing
+                                                        <small>
+                                                            <a rel="nofollow" id="cancel-comment-reply-link" href="#"
+                                                                style="display:none;">Javobni bekor qilish
+                                                            </a>
+                                                        </small>
+                                                    </span>
+                                                    <form method="post" id="commentform" class="comment-form">
+                                                        <p class="comment-notes">
+                                                            <span id="email-notes">Sizning elektron pochta manzilingiz nashr etilmaydi.</span> 
+                                                            <span class="required-field-message">Majburiy maydonlar belgilang
+                                                                <span class="required">*</span>
+                                                            </span>
+                                                        </p>
+                                                        <div class="comment-form-rating">
+                                                            <label for="rating">Sizning reytingingiz&nbsp;
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <p class="stars"> 
+                                                                <span> 
+                                                                    <a class="star-1" href="#">1</a> 
+                                                                    <a class="star-2" href="#">2</a> 
+                                                                    <a class="star-3" href="#">3</a> 
+                                                                    <a class="star-4" href="#">4</a>
+                                                                    <a class="star-5" href="#">5</a> 
+                                                                </span> 
+                                                            </p>
+                                                            <select name="rating" id="rating" required="" style="display: none;">
+                                                                <option value="">Rate…</option>
+                                                                <option value="5">Perfect</option>
+                                                                <option value="4">Good</option>
+                                                                <option value="3">Average</option>
+                                                                <option value="2">Not that bad</option>
+                                                                <option value="1">Very poor</option>
+                                                            </select>
+                                                        </div>
+                                                        <p class="comment-form-comment">
+                                                            <label for="comment">Sizning sharhingiz&nbsp;
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <textarea id="comment" name="comment" cols="45" rows="8" required=""></textarea>
+                                                        </p>
+                                                        <p class="comment-form-author">
+                                                            <label for="author">Ism&nbsp;
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <input id="author" name="author" type="text" value="" size="30" required="">
+                                                        </p>
+                                                        <p class="comment-form-email">
+                                                            <label for="email">Email&nbsp;
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <input id="email" name="email" type="email" value="" size="30" required="">
+                                                        </p>
+                                                        <p class="comment-form-cookies-consent">
+                                                            <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> 
+                                                            <label for="wp-comment-cookies-consent">Keyingi safar sharhlashim uchun ismim, elektron pochta manzilim va veb-saytimni ushbu brauzerda saqlang.</label>
+                                                        </p>
+                                                        <p class="form-submit">
+                                                            <input name="submit" type="submit" id="submit" class="submit" value="Yuborish"> 
+                                                            <input type="hidden" name="comment_post_ID" value="11284" id="comment_post_ID">
+                                                            <input type="hidden" name="comment_parent" d="comment_parent" value="0">
+                                                        </p>
+                                                    </form>
+                                                </div> 
+                                            </div>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+
+                            <section class="related products">
+
+                                <h2>Tegishli mahsulotlar</h2>
+
+                                <ul class="products content-wrap product-archive grid-cols grid-ss-col-2 grid-sm-col-3 grid-lg-col-4 woo-archive-action-visible woo-archive-btn-button woo-archive-image-hover-fade owl-carousel owl-theme" >
+                                    <div class="owl-wrapper-outer">
+                                        <div class="owl-wrapper" style="width: 6120px; left: 0px; display: block; transition: all; transform: translate3d(0px, 0px, 0px);">
+                                            {% for related in related_products %}
+                                            <div class="owl-item" style="width: 306px;">
+                                                <li class="entry content-bg loop-entry product type-product post-705 status-publish first instock product_cat-power-tools product_cat-blades product_cat-cutting-tools product_cat-hand-tools product_cat-pressure-washers product_cat-safety-workwear has-post-thumbnail featured shipping-taxable purchasable product-type-variable has-default-attributes">
+                                                    <div class="product-thumbnail">
+                                                        <div class="archive-image-wrap">
+                                                            <div class="archive-extra-button-wrap">
+                                                                <button class="woosw-btn woosw-btn-705 woosw-btn-has-icon woosw-btn-icon-only">
+                                                                    <span class="woosw-btn-icon woosw-icon-5"></span>
+                                                                </button>
+                                                                <button class="woosc-btn woosc-btn-705  woosc-btn-has-icon woosc-btn-icon-only">
+                                                                    <span class="woosc-btn-icon woosc-icon-13"></span>
+                                                                </button>
+                                                                <button class="woosq-btn woosq-btn-705 woosq-btn-has-icon woosq-btn-icon-only">
+                                                                    <span class="woosq-btn-icon woosq-icon-1"></span>
+                                                                </button>
+                                                            </div>
+                                                            <a href="#" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
+                                                                {% for image in related.images.all|slice:":2" %}
+                                                                {% if forloop.counter == 1 %}
+                                                                <img width="242" height="242" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" >
+                                                                {% elif forloop.counter == 2 %}
+                                                                <img width="242" height="242" src="{{ image.get_produc_img  }}" class="secondary-product-image attachment-woocommerce_thumbnail attachment-shop-catalog wp-post-image wp-post-image--secondary" alt="" title="a2">
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-details content-bg entry-content-wrap">
+                                                        <h2 class="woocommerce-loop-product__title">
+                                                            <a href="{% url 'shop_view' related.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{related.name}}</a>
+                                                        </h2>
+                                                        <!-- <div class="star-rating" title=" ">
+                                                            <span style="width:100%">
+                                                                <strong class="rating">5.00</strong>
+                                                                out of 5</span>
+                                                            </div> -->
+                                                        <span class="price">
+                                                            <span class="woocommerce-Price-amount amount">
+                                                                <bdi> {{related.price}}-so'm</bdi>
+                                                            </span>
+                                                        </span>
+                                                        <div class="product-action-wrap style-button">
+                                                            <a href="#" class="button product_type_variable add_to_cart_button">
+                                                                Tanlash
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="owl-controls clickable">
+                                        <div class="owl-buttons">
+                                            <div class="owl-prev">prev</div>
+                                            <div class="owl-next">next</div>
+                                        </div>
+                                    </div>
+                                </ul>
+
+                            </section>
+
+                        </div>
+                    </main>
+                </div>
+            </div>
+
+        </div>
+        {% include 'base/footer.html' %}
+    </div>
+    {% include 'base/js.html' %}
+
+</body>
+{% endblock content %}

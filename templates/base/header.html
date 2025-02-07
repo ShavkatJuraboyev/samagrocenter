@@ -172,22 +172,22 @@
                                                     <ul class="product-categories">
                                                         {% for product in product_categorys %}
                                                             <li class="cat-item {% if product.children.all %}cat-parent{% endif %}">
-                                                                <a href="">{{ product.name }}</a>
+                                                                <a href="{% url 'shop' %}?category_id={{ product.id }}">{{ product.name }}</a>
                                                                 {% if product.children.all %}
                                                                 <ul class="children">
                                                                     {% for child in product.children.all %}
                                                                         <li class="cat-item {% if child.children.all %}cat-parent{% endif %}">
-                                                                            <a href="">{{ child.name }}</a>
+                                                                            <a href="{% url 'shop' %}?category_id={{ child.id }}">{{ child.name }}</a>
                                                                             {% if child.children.all %}
                                                                             <ul class="children">
                                                                                 {% for subchild in child.children.all %}
                                                                                     <li class="cat-item {% if subchild.children.all %}cat-parent{% endif %}">
-                                                                                        <a href="">{{ subchild.name }}</a>
+                                                                                        <a href="{% url 'shop' %}?category_id={{ subchild.id }}">{{ subchild.name }}</a>
                                                                                         {% if subchild.children.all %}
                                                                                         <ul class="children">
                                                                                             {% for sub in subchild.children.all %}
                                                                                                 <li class="cat-item {% if sub.children.all %}cat-parent{% endif %}">
-                                                                                                    <a href="">{{ sub.name }}</a>
+                                                                                                    <a href="{% url 'shop' %}?category_id={{ sub.id }}">{{ sub.name }}</a>
                                                                                                 </li>
                                                                                             {% endfor %}
                                                                                         </ul>
@@ -203,6 +203,7 @@
                                                             </li>
                                                         {% endfor %}
                                                     </ul>
+                                                    
                                                 </div>
                                             </div>
                                             <p></p>
