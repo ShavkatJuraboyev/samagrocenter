@@ -1,0 +1,323 @@
+ {% load static %}
+ 
+ <!-- #wrapper -->
+ <script>
+    window.RS_MODULES = window.RS_MODULES || {};
+    window.RS_MODULES.modules = window.RS_MODULES.modules || {};
+    window.RS_MODULES.waiting = window.RS_MODULES.waiting || [];
+    window.RS_MODULES.defered = true;
+    window.RS_MODULES.moduleWaiting = window.RS_MODULES.moduleWaiting || {};
+    window.RS_MODULES.type = 'compiled';
+</script>
+<script>
+    document.documentElement.style.setProperty('--scrollbar-offset', window.innerWidth - document.documentElement.clientWidth + 'px');
+</script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:600%2C700%2C800%2C500%7CRoboto:400&amp;display=swap" rel="stylesheet" property="stylesheet" media="all" type="text/css">
+<script type="text/javascript">
+    (function() {
+        var c = document.body.className;
+        c = c.replace(/woocommerce-no-js/, 'woocommerce-js');
+        document.body.className = c;
+    }
+    )();
+</script>
+
+<div id="widget-drawer" class="popup-drawer popup-drawer-layout-sidepanel popup-drawer-side-left" data-drawer-target-string="#widget-drawer">
+    <div class="drawer-overlay" data-drawer-target-string="#widget-drawer"></div>
+    <div class="drawer-inner">
+        <div class="drawer-header">
+            <button class="widget-toggle-close drawer-toggle" aria-label="Close panel" data-toggle-target="#widget-drawer" data-toggle-body-class="showing-widget-drawer" aria-expanded="false" data-set-focus=".widget-toggle-open">
+                <span class="base-svg-iconset">
+                    <svg class="base-svg-icon base-close-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <title>Menu Close</title>
+                        <path d="M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
+                    </svg>
+                </span>
+            </button>
+        </div>
+        <div class="drawer-content">
+            <div class="widget-area header-widget2 header-widget-2style-plain">
+                <section id="nav_menu-4" class="widget widget_nav_menu">
+                    <h2 class="widget-title">Kategoriya bo'yicha xarid qiling</h2>
+                    <div class="collapse-sub-navigation">
+                        <ul id="menu-nav_menu-4" class="menu has-collapse-sub-nav">
+                            {% for product in product_categorys %}
+                            <li id="menu-item-{{product.id}}" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-{{product.id}}">
+                                {% if product.children %}
+                                <div class="drawer-nav-drop-wrap">
+                                    <a href="">{{product.name}}</a>
+                                    <button class="drawer-sub-toggle" data-toggle-duration="10" data-toggle-target="#menu-nav_menu-4 .menu-item-{{product.id}} &gt; .sub-menu" aria-expanded="false">
+                                        <span class="base-svg-iconset">
+                                            <svg aria-hidden="true" class="base-svg-icon base-arrow-down-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                <path d="M5.293 9.707l6 6c0.391 0.391 1.024 0.391 1.414 0l6-6c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
+                                            </svg>
+                                        </span>
+                                    </button>
+                                </div>
+                                <ul class="sub-menu">
+                                    {% for child in product.children.all %}
+                                    <li id="menu-item-{{child.id}}" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-has-children menu-item-{{child.id}}">
+                                        {% if child.children %}
+                                        <div class="drawer-nav-drop-wrap">
+                                            <a href="240v-power-tools/">{{child.name}}</a>
+                                            <button class="drawer-sub-toggle" data-toggle-duration="10" data-toggle-target="#menu-nav_menu-4 .menu-item-{{child.id}} &gt; .sub-menu" aria-expanded="false">
+                                                <span class="base-svg-iconset">
+                                                    <svg aria-hidden="true" class="base-svg-icon base-arrow-down-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                        <path d="M5.293 9.707l6 6c0.391 0.391 1.024 0.391 1.414 0l6-6c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z"></path>
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <ul class="sub-menu">
+                                            {% for subchild in child.children.all %}
+                                            <li id="menu-item-{{subchild.id}}" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-12349">
+                                                <a href="">{{subchild.name}}</a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                        <a href="#">{{child.name}}</a>
+                                        {% endif %}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <a href="#">{{product.name}}</a>
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mobile-drawer" class="popup-drawer popup-drawer-layout-sidepanel popup-drawer-animation-fade popup-drawer-side-right" data-drawer-target-string="#mobile-drawer">
+    <div class="drawer-overlay" data-drawer-target-string="#mobile-drawer"></div>
+    <div class="drawer-inner">
+        <div class="drawer-header">
+            <button class="menu-toggle-close drawer-toggle" aria-label="Close menu" data-toggle-target="#mobile-drawer" data-toggle-body-class="showing-popup-drawer-from-right" aria-expanded="false" data-set-focus=".menu-toggle-open">
+                <span class="toggle-close-bar"></span>
+                <span class="toggle-close-bar"></span>
+            </button>
+        </div>
+        <div class="drawer-content mobile-drawer-content content-align-left content-valign-top">
+            <div class="site-header-item site-header-focus-item site-header-item-mobile-navigation mobile-navigation-layout-stretch-false" data-section="base_customizer_mobile_navigation">
+                <nav id="mobile-site-navigation" class="mobile-navigation drawer-navigation drawer-navigation-parent-toggle-false" role="navigation" aria-label="Primary Mobile Navigation">
+                    <div class="mobile-menu-container drawer-menu-container">
+                        <ul id="mobile-menu" class="menu has-collapse-sub-nav">
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-1824">
+                                <a href="/">Bosh saxifa</a>
+                            </li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item current_page_item menu-item-11627">
+                                <a href="{% url 'shop' %}" aria-current="page">Do'kon</a>
+                            </li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2105">
+                                <a href="{% url 'about' %}">Biz haqimizda</a>
+                            </li>
+                            <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2084">
+                                <a href="{% url 'contact' %}">Biz bilan bog'laning</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- #site-navigation -->
+            </div>
+            <!-- data-section="mobile_navigation" -->
+        </div>
+    </div>
+</div>
+
+<style id='core-block-supports-inline-css'>
+    .wp-container-core-columns-is-layout-1.wp-container-core-columns-is-layout-1 {
+        flex-wrap: nowrap;
+    }
+</style>
+
+<link rel='stylesheet' id='rs-plugin-settings-css' href="{% static 'wp-content/plugins/revslider/public/assets/css/rs6.css' %}" media='all'/>
+<script src="{% static 'wp-content/plugins/contact-form-7/includes/swv/js/index.js' %}" id="swv-js"></script>
+
+<script id="contact-form-7-js-extra">
+    var wpcf7 = {
+        "api": {
+            "root": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/wp-json\/",
+            "namespace": "contact-form-7\/v1"
+        }
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/contact-form-7/includes/js/index.js' %}" id="contact-form-7-js"></script>
+<script src="{% static 'wp-content/plugins/revslider/public/assets/js/rbtools.min.js' %}" defer async id="tp-tools-js"></script>
+<script src="{% static 'wp-content/plugins/revslider/public/assets/js/rs6.min.js' %}" defer async id="revmin-js"></script>
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js' %}" id="jquery-blockui-js"></script>
+
+<script id="wc-add-to-cart-js-extra">
+    var wc_add_to_cart_params = {
+        "ajax_url": "\/woo\/WCM02\/WCM02046\/wp-admin\/admin-ajax.php",
+        "wc_ajax_url": "\/woo\/WCM02\/WCM02046\/?wc-ajax=%%endpoint%%",
+        "i18n_view_cart": "View cart",
+        "cart_url": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/cart\/",
+        "is_cart": "",
+        "cart_redirect_after_add": "no"
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js' %}" id="wc-add-to-cart-js"></script>
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js' %}" id="js-cookie-js"></script>
+
+<script id="woocommerce-js-extra">
+    var woocommerce_params = {
+        "ajax_url": "\/woo\/WCM02\/WCM02046\/wp-admin\/admin-ajax.php",
+        "wc_ajax_url": "\/woo\/WCM02\/WCM02046\/?wc-ajax=%%endpoint%%"
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js' %}" id="woocommerce-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/print/jQuery.print.js' %}" id="print-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/table-head-fixer/table-head-fixer.js' %}" id="table-head-fixer-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js' %}" id="perfect-scrollbar-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/notiny/notiny.js' %}" id="notiny-js"></script>
+<script src="{% static 'wp-includes/js/jquery/ui/core.min.js' %}" id="jquery-ui-core-js"></script>
+<script src="{% static 'wp-includes/js/jquery/ui/mouse.min.js' %}" id="jquery-ui-mouse-js"></script>
+<script src="{% static 'wp-includes/js/jquery/ui/sortable.min.js' %}" id="jquery-ui-sortable-js"></script>
+
+<script id="woosc-frontend-js-extra">
+    var woosc_vars = {
+        "ajax_url": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/wp-admin\/admin-ajax.php",
+        "hash": "ec00",
+        "user_id": "0cdb64fab32a05bd393b20c8c351de9f",
+        "page_url": "#",
+        "open_button": "",
+        "open_button_action": "open_popup",
+        "menu_action": "open_popup",
+        "button_action": "show_message",
+        "sidebar_position": "left",
+        "message_position": "right-top",
+        "message_added": "{name} has been added to Compare list.",
+        "message_removed": "{name} has been removed from the Compare list.",
+        "message_exists": "{name} is already in the Compare list.",
+        "open_bar": "no",
+        "bar_bubble": "no",
+        "adding": "prepend",
+        "click_again": "no",
+        "hide_empty": "no",
+        "click_outside": "yes",
+        "freeze_column": "yes",
+        "freeze_row": "yes",
+        "scrollbar": "yes",
+        "limit": "100",
+        "remove_all": "Do you want to remove all products from the compare?",
+        "limit_notice": "You can add a maximum of {limit} products to the comparison table.",
+        "copied_text": "Share link %s was copied to clipboard!",
+        "button_text": "Compare",
+        "button_text_added": "Compare",
+        "button_normal_icon": "woosc-icon-13",
+        "button_added_icon": "woosc-icon-74"
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/woo-smart-compare/assets/js/frontend.js' %}" id="woosc-frontend-js"></script>
+<script src="{% static 'wp-includes/js/underscore.min.js' %}" id="underscore-js"></script>
+
+<script id="wp-util-js-extra">
+    var _wpUtilSettings = {
+        "ajax": {
+            "url": "\/woo\/WCM02\/WCM02046\/wp-admin\/admin-ajax.php"
+        }
+    };
+</script>
+
+<script src="{% static 'wp-includes/js/wp-util.min.js' %}" id="wp-util-js"></script>
+
+<script id="wc-add-to-cart-variation-js-extra">
+    var wc_add_to_cart_variation_params = {
+        "wc_ajax_url": "\/woo\/WCM02\/WCM02046\/?wc-ajax=%%endpoint%%",
+        "i18n_no_matching_variations_text": "Sorry, no products matched your selection. Please choose a different combination.",
+        "i18n_make_a_selection_text": "Please select some product options before adding this product to your cart.",
+        "i18n_unavailable_text": "Sorry, this product is unavailable. Please choose a different combination."
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart-variation.min.js' %}" id="wc-add-to-cart-variation-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/libs/slick/slick.min.js' %}" id="slick-js"></script>
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/zoom/jquery.zoom.min.js' %}" id="zoom-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/libs/magnific-popup/jquery.magnific-popup.min.js' %}" id="magnific-popup-js"></script>
+
+<script id="woosq-frontend-js-extra">
+    var woosq_vars = {
+        "ajax_url": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/wp-admin\/admin-ajax.php",
+        "view": "popup",
+        "effect": "mfp-3d-unfold",
+        "scrollbar": "yes",
+        "auto_close": "yes",
+        "hashchange": "no",
+        "cart_redirect": "no",
+        "cart_url": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/cart\/",
+        "close": "Close (Esc)",
+        "next": "Next (Right arrow key)",
+        "prev": "Previous (Left arrow key)",
+        "thumbnails_effect": "zoom",
+        "related_slick_params": "{\"slidesToShow\":2,\"slidesToScroll\":2,\"dots\":true,\"arrows\":false,\"adaptiveHeight\":true,\"rtl\":false}",
+        "thumbnails_slick_params": "{\"slidesToShow\":1,\"slidesToScroll\":1,\"dots\":true,\"arrows\":true,\"adaptiveHeight\":false,\"rtl\":false}",
+        "thumbnails_zoom_params": "{\"duration\":120,\"magnify\":1}"
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/js/frontend.js' %}" id="woosq-frontend-js"></script>
+
+<script id="woosw-frontend-js-extra">
+    var woosw_vars = {
+        "ajax_url": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/wp-admin\/admin-ajax.php",
+        "menu_action": "open_page",
+        "perfect_scrollbar": "yes",
+        "wishlist_url": "https:\/\/demos.coderplace.com\/woo\/WCM02\/WCM02046\/wishlist\/",
+        "button_action": "message",
+        "message_position": "right-top",
+        "button_action_added": "popup",
+        "empty_confirm": "This action cannot be undone. Are you sure?",
+        "delete_confirm": "This action cannot be undone. Are you sure?",
+        "copied_text": "Copied the wishlist link:",
+        "menu_text": "Wishlist",
+        "button_text": "Add to wishlist",
+        "button_text_added": "Browse wishlist",
+        "button_normal_icon": "woosw-icon-5",
+        "button_added_icon": "woosw-icon-5",
+        "button_loading_icon": "woosw-icon-4"
+    };
+</script>
+
+<script src="{% static 'wp-content/plugins/woo-smart-wishlist/assets/js/frontend.js' %}" id="woosw-frontend-js"></script>
+
+<script id="base-navigation-js-extra">
+    var baseConfig = {
+        "screenReader": {
+            "expand": "Expand child menu",
+            "expandOf": "Expand child menu of",
+            "collapse": "Collapse child menu",
+            "collapseOf": "Collapse child menu of"
+        },
+        "breakPoints": {
+            "desktop": "1024",
+            "tablet": 768
+        },
+        "scrollOffset": "0"
+    };
+</script>
+
+<script src="{% static 'wp-content/themes/avanam/assets/js/navigation.min.js' %}" id="base-navigation-js" async></script>
+<script src="{% static 'wp-content/themes/avanam/assets/js/shop-spinner.min.js' %}" id="base-shop-spinner-js" async></script>
+<script src="{% static 'wp-includes/js/jquery/ui/slider.min.js' %}" id="jquery-ui-slider-js"></script>
+<script src="{% static 'wp-content/plugins/woocommerce/assets/js/jquery-ui-touch-punch/jquery-ui-touch-punch.min.js' %}" id="wc-jquery-ui-touchpunch-js"></script>
+
+
+<script src="{% static 'wp-content/plugins/filter-everything/assets/js/filter-everything.min.js' %}" id="wpc-filter-everything-js"></script>
+
+<script id="base-shop-toggle-js-extra">
+    var baseShopConfig = {
+        "siteSlug": "tooldic"
+    };
+</script>
+
+<script src="{% static 'wp-content/themes/avanam/assets/js/shop-toggle.min.js' %}" id="base-shop-toggle-js" async></script>
