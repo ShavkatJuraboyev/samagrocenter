@@ -25,6 +25,7 @@ def home(request):
         })
 
     context = {
+        "product_categorys":product_categorys,
         'categories_with_counts': categories_with_counts,  # Yangilangan kontekst
     }
     return render(request, 'home/index.html', context=context)
