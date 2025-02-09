@@ -18,7 +18,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('verify/', verify_sms, name='verify'),
     path('login/',login_view, name='login'),
-    path('verify/', verify_login_sms, name='verify_login'),
+    path('verify/login/', verify_login_sms, name='verify_login'),
 
 
     path('checkout/', checkout, name='checkout'),

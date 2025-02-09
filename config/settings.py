@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'samagro',
 ]
+AUTH_USER_MODEL = 'samagro.Users'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

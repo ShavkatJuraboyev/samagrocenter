@@ -1,6 +1,7 @@
+import random
+import time
 from samagro.models import ProductCategory, Products, Users, Order
 from django.core.paginator import Paginator
-import random
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from samagro.utils import send_sms
@@ -9,86 +10,111 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 
+def login_decorator(func):
+    return login_required(func, login_url='login')
 
+# Ro‘yxatdan o‘tish
 def register(request):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         phone = request.POST.get("phone")
-        
-        # Telefon raqamining mavjudligini tekshirish
-        if Users.objects.filter(phone=phone).exists():
+
+        User = get_user_model()
+        if User.objects.filter(phone=phone).exists():
             return render(request, "registrator/register.html", {"error": "Bu telefon raqam allaqachon mavjud!"})
 
-        # Yangi foydalanuvchi yaratish
-        user = Users.objects.create(first_name=first_name, last_name=last_name, phone=phone)
-        request.session["user_phone"] = phone
+        # Foydalanuvchini yaratish
+        user = User.objects.create_user(
+            phone=phone,
+            first_name=first_name,
+            last_name=last_name,
+            password=None
+        )
 
-        # Tasdiqlash kodi yaratish va SMS yuborish
+        request.session["user_phone"] = phone
         verification_code = random.randint(1000, 9999)
         request.session["verification_code"] = verification_code
+        request.session["verification_time"] = time.time()
+
         send_sms(phone, verification_code)
 
         return redirect("verify")
 
     return render(request, "registrator/register.html")
 
-# SMS kodini tasdiqlash
+
+# SMS kodni tasdiqlash
 def verify_sms(request):
     if request.method == "POST":
         user_phone = request.session.get("user_phone")
         entered_code = request.POST.get("code")
         verification_code = request.session.get("verification_code")
+        verification_time = request.session.get("verification_time")
 
-        # Kodni tekshirish
-        if int(entered_code) == verification_code:
-            user = Users.objects.get(phone=user_phone)
+        # 5 daqiqadan keyin kod eskirgan bo‘ladi
+        if time.time() - verification_time > 300:
+            messages.error(request, "Tasdiqlash kodining muddati tugagan. Iltimos, qaytadan urinib ko‘ring!")
+            return redirect("register")
+
+        if entered_code and entered_code.isdigit() and int(entered_code) == verification_code:
+            User = get_user_model()
+            user = User.objects.get(phone=user_phone)
             user.is_active = True
             user.save()
             login(request, user)
+
+            del request.session["verification_code"]
+            del request.session["verification_time"]
+            del request.session["user_phone"]
+
             return redirect("home")
 
-        return render(request, "registrator/verify.html", {"error": "Kod noto‘g‘ri!"})
+        messages.error(request, "Noto‘g‘ri kod! Iltimos, qaytadan urinib ko‘ring.")
+        return render(request, "registrator/verify.html")
 
     return render(request, "registrator/verify.html")
 
-# Login (telefon raqami orqali)
+
+# Tizimga kirish (Telefon raqam orqali)
 def login_view(request):
     if request.method == "POST":
         phone = request.POST.get("phone")
-        
-        # Telefon raqamini tekshirish
+
+        User = get_user_model()
         try:
-            user = Users.objects.get(phone=phone)
-        except Users.DoesNotExist:
+            user = User.objects.get(phone=phone)
+        except User.DoesNotExist:
             messages.error(request, "Telefon raqam topilmadi!")
             return render(request, "registrator/login.html")
-        
-        # SMS kodini yuborish
-        return send_verification_code(request, phone)
+
+        # Tasdiqlash kodi yuborish
+        verification_code = random.randint(1000, 9999)
+        request.session["verification_code"] = verification_code
+        request.session["user_phone"] = phone
+        request.session["verification_time"] = time.time()
+
+        send_sms(phone, verification_code)
+
+        return redirect("verify")
 
     return render(request, "registrator/login.html")
 
-# SMS kodi yuborish
-def send_verification_code(request, phone):
-    verification_code = random.randint(1000, 9999)
-    request.session["verification_code"] = verification_code
-    request.session["user_phone"] = phone
 
-    # SMS yuborish
-    send_sms(phone, verification_code)
-
-    return render(request, "registrator/verify_login_sms.html", {"phone": phone})
-
-# SMS kodni tekshirish
+# SMS orqali tizimga kirish
 def verify_login_sms(request):
     if request.method == "POST":
         entered_code = request.POST.get("code")
         verification_code = request.session.get("verification_code")
         user_phone = request.session.get("user_phone")
+        verification_time = request.session.get("verification_time")
 
         if not verification_code or not user_phone:
-            messages.error(request, "Tasdiqlash kodining muddati tugagan. Iltimos, qaytadan urinib ko‘ring!")
+            messages.error(request, "Tasdiqlash kodining muddati tugagan. Iltimos, qayta urinib ko‘ring!")
+            return redirect("login")
+
+        if time.time() - verification_time > 300:
+            messages.error(request, "Kodning muddati tugagan. Yangi kod oling!")
             return redirect("login")
 
         if entered_code and entered_code.isdigit() and int(entered_code) == verification_code:
@@ -100,13 +126,14 @@ def verify_login_sms(request):
                     login(request, user)
 
                     del request.session["verification_code"]
+                    del request.session["verification_time"]
                     del request.session["user_phone"]
 
                     return redirect("home")
                 else:
                     messages.error(request, "Foydalanuvchi tasdiqlanmagan!")
                     return redirect("login")
-            except User.DoesNotExist:
+            except Users.DoesNotExist:
                 messages.error(request, "Foydalanuvchi topilmadi!")
                 return redirect("login")
 
@@ -116,17 +143,17 @@ def verify_login_sms(request):
     return redirect("login")
 
 
+@login_decorator
 def logout_view(request):
     logout(request)  # Django's logout() function
     return redirect("login")
 
-@login_required
+@login_decorator
 def profile(request):
     return render(request, "registrator/profile.html", {"user": request.user})
 
 
-
-
+@login_decorator
 def home(request):
     product_categorys = ProductCategory.objects.filter(parent__isnull=True).prefetch_related('children').order_by('id')
     new_products = Products.objects.all().order_by('-id')[:5]
