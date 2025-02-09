@@ -49,10 +49,15 @@ class Products(models.Model):
     productcategory = models.ForeignKey(ProductCategory, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Maxsulot turi")
     name = models.CharField(max_length=250, null=True, blank=True, verbose_name="Maxsulot nomi")
     images = models.ManyToManyField(ProductPicture, blank=True, verbose_name="Maxsulot rasmlari")
-    price = models.FloatField(null=True, blank=True, verbose_name="Maxsulot narxi")
+    price = models.CharField(max_length=50, null=True, blank=True, verbose_name="Maxsulot narxi")
     text = models.TextField(null=True, blank=True, verbose_name="Maxsulot haqida ma'lumot")
     content = RichTextUploadingField(config_name='extends', verbose_name="Maxsulot haqida umumiy ma'lumot", null=True, blank=True)
 
+    is_discount = models.BooleanField(default=False, null=True, blank=True, verbose_name="Chegirma berish")
+    price_discount = models.CharField(max_length=50, null=True, blank=True, verbose_name="Maxsulot chegirma narxi")
+    date_end_discount = models.DateField(null=True, blank=True, verbose_name="Chegrima tugash vaqti")
+    percent_discount = models.CharField(max_length=4, null=True, blank=True, verbose_name="Chegirma foizi")
+    
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan vaqt")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="O‘zgartirilgan vaqt")
 
@@ -67,3 +72,10 @@ class Products(models.Model):
     def __str__(self):
             return self.name
 
+
+class Users(models.Model):
+    frist_name = models.CharField(max_length=100, null=True, blank=True, verbose_name="Foydalanuvchi ismi:")
+    last_name = models.CharField(max_length=100, null=True, blank=True, verbose_name="Foydalanuvchi familiyasi:")
+    address = models.CharField(max_length=250, null=True, blank=True, verbose_name="Ko'cha manzili")
+    state = models.CharField(max_length=50, null=True, blank=True, verbose_name="Ko'chas nomi")
+    phone =models.CharField(max_length=13, null=True, blank=True, verbose_name="Telefon nomer")

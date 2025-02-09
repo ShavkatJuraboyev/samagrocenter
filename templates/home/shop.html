@@ -48,7 +48,8 @@
                         <div class="woocommerce-notices-wrapper"></div>
                         <div class="base-shop-top-row">
                             <div class="base-shop-top-item base-woo-results-count">
-                                <p class="woocommerce-result-count">18 ta natijadan 1-16 tasi koʻrsatilmoqda</p>
+                                <p class="woocommerce-result-count">{{ products.paginator.count }} ta natijadan {{ products.start_index }}-{{ products.end_index }} tasi koʻrsatilmoqda
+                                </p>
                             </div>
                             <div class="base-shop-top-item base-woo-ordering">
                                 <form class="woocommerce-ordering" method="get">
@@ -91,24 +92,25 @@
                                     <div class="archive-image-wrap">
                                         <div class="archive-extra-button-wrap">
                                             <button class="woosw-btn woosw-btn-11284 woosw-btn-has-icon woosw-btn-icon-only">
-                                                <span class="woosw-btn-icon woosw-icon-5"></span>
+                                                <i class="fa-regular fa-heart"></i>
                                             </button>
                                             <button class="woosc-btn woosc-btn-11284  woosc-btn-has-icon woosc-btn-icon-only">
-                                                <span class="woosc-btn-icon woosc-icon-13"></span>
+                                                <i class="fas fa-exchange-alt"></i>
                                             </button>
                                             <button class="woosq-btn woosq-btn-11284 woosq-btn-has-icon woosq-btn-icon-only">
-                                                <span class="woosq-btn-icon woosq-icon-1"></span>
+                                                <i class="fa-duotone fa-solid fa-eye"></i>
                                             </button>
                                         </div>
                                         <a href="{% url 'shop_view' product.id %}" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
                                             {% for image in product.images.all|slice:":2" %}
                                             {% if forloop.counter == 1 %}
-                                                <img width="242" height="242" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" />
+                                                <img style="height: 230px;" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt=""/>
                                             {% elif forloop.counter == 2 %}
-                                                <img width="242" height="242" src="{{ image.get_produc_img  }}" class="secondary-product-image attachment-woocommerce_thumbnail attachment-shop-catalog wp-post-image wp-post-image--secondary" alt=""/>
+                                                <img style="height: 230px;" src="{{ image.get_produc_img  }}" class="secondary-product-image attachment-woocommerce_thumbnail attachment-shop-catalog wp-post-image wp-post-image--secondary" alt=""/>
                                             {% endif %}
                                             {% endfor %}
                                         </a>
+                                        
                                     </div>
                                     <div class="product-actions"></div>
                                 </div>
@@ -119,7 +121,7 @@
                                     <span class="price">
                                         <span class="woocommerce-Price-amount amount">
                                             <bdi>
-                                                {{product.price}}-so'm
+                                                {{product.price}}
                                             </bdi>
                                         </span>
                                     </span>
@@ -127,7 +129,7 @@
                                         <p>{{product.text}}</p>
                                     </div>
                                     <div class="product-action-wrap style-button">
-                                        <a href=""class="button product_type_variable add_to_cart_button">
+                                        <a href="{% url 'shop_view' product.id %}"class="button product_type_variable add_to_cart_button">
                                             Tanlash
                                         </a>
                                     </div>
@@ -135,6 +137,32 @@
                             </li>
                             {% endfor %}
                         </ul>
+                        <nav class="woocommerce-pagination">
+                            <ul class="page-numbers">
+                                <!-- Oldingi sahifa tugmasi -->
+                                {% if products.has_previous %}
+                                    <li><a class="prev page-numbers" href="?page={{ products.previous_page_number }}">&larr;</a></li>
+                                {% else %}
+                                    <li class="disabled"><span class="prev page-numbers">&larr;</span></li>
+                                {% endif %}
+                                
+                                <!-- Sahifa raqamlari -->
+                                {% for page in products.paginator.page_range %}
+                                    {% if page == products.number %}
+                                        <li><span aria-current="page" class="page-numbers current">{{ page }}</span></li>
+                                    {% elif page > products.number|add:'-3' and page < products.number|add:'3' %}
+                                        <li><a class="page-numbers" href="?page={{ page }}">{{ page }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                <!-- Keyingi sahifa tugmasi -->
+                                {% if products.has_next %}
+                                    <li><a class="next page-numbers" href="?page={{ products.next_page_number }}">&rarr;</a></li>
+                                {% else %}
+                                    <li class="disabled"><span class="next page-numbers">&rarr;</span></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
                     </main>
                     <aside class="primary-sidebar widget-area sidebar-slug-sidebar-primary sidebar-link-style-plain">
                         <div class="sidebar-inner-wrap">                        

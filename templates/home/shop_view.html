@@ -48,37 +48,50 @@
                         <div class="entry content-bg entry-content-wrap product type-product post-11284 status-publish first instock  product_cat-air-tools product_cat-cordless-kits product_cat-cutting-tools product_cat-nailers product_cat-power-tools  product_cat-pressure-washers product_cat-safety-equipment product_cat-safety-workwear product_cat-staple-guns  has-post-thumbnail featured shipping-taxable purchasable product-type-variable has-default-attributes">
                             
                             <div class="woocommerce-product-gallery woocommerce-product-gallery--with-images  woocommerce-product-gallery--columns-4 images gallery-has-thumbnails">
-                                <a href="#" class="woocommerce-product-gallery__trigger">
-                                    <img draggable="false" role="img" class="emoji" alt="🔍" src="https://s.w.org/images/core/emoji/15.0.3/svg/1f50d.svg">
-                                </a>
-                                <div class="flex-viewport" style="overflow: hidden; position: relative; height: 401.1px;">
+                                
+                                <div class="flex-viewport">
                                     <div class="woocommerce-product-gallery__wrapper">
                                         <div class="woocommerce-product-gallery__image flex-active-slide">
                                             <a href="">
-                                                <img width="700" height="700" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a1-11-700x700.jpg" class="wp-post-image" alt="" title="a1" >
+                                                {% for image in product.images.all|slice:":1" %}
+                                                {% if forloop.counter == 1 %}
+                                                <img width="700" height="700" src="{{ image.get_produc_img }}" class="wp-post-image" alt="" title="a1" >
+                                                {% endif %}
+                                                {% endfor %}
                                             </a>
-                                            <img alt="" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a1-11.jpg" class="zoomImg">
+                                            <img alt="" src="" class="zoomImg">
                                         </div>
                                         <div class="woocommerce-product-gallery__image">
                                             <a href="">
-                                                <img width="700" height="700" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a2-11-700x700.jpg" class="" alt="" title="a2">
+                                                <img width="700" height="700" src="" class="" alt="" title="a2">
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                                 <ol class="flex-control-nav flex-control-thumbs owl-carousel owl-theme" style="opacity: 1; display: block;">
                                     <div class="owl-wrapper-outer">
-                                        <div class="owl-wrapper" style="width: 456px; left: 0px; display: block; transition: all; transform: translate3d(0px, 0px, 0px);">
-                                            <div class="owl-item" style="width: 114px;">
+                                        <div class="owl-wrapper" style="width: 738px; left: 0px; display: block; transition: all; transform: translate3d(0px, 0px, 0px);">
+                                            {% for image in product.images.all|slice:":3" %}
+                                            {% if forloop.counter == 1 %}
+                                            <div class="owl-item" style="width: 123px;">
                                                 <li>
-                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a1-11-100x100.jpg"  class="flex-active" draggable="false" width="100" height="100">
+                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="{{ image.get_produc_img }}" class="flex-active" draggable="false" width="100" height="100">
                                                 </li>
                                             </div>
-                                            <div class="owl-item" style="width: 114px;">
+                                            {% elif forloop.counter == 2 %}
+                                            <div class="owl-item" style="width: 123px;">
                                                 <li>
-                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2019/01/a2-11-100x100.jpg" draggable="false" width="100" height="100">
+                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="{{ image.get_produc_img }}" draggable="false" width="100" height="100">
                                                 </li>
                                             </div>
+                                            {% elif forloop.counter == 3 %}
+                                            <div class="owl-item" style="width: 123px;">
+                                                <li>
+                                                    <img onload="this.width = this.naturalWidth; this.height = this.naturalHeight" src="{{ image.get_produc_img }}" draggable="false" width="100" height="100">
+                                                </li>
+                                            </div>
+                                            {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <div class="owl-controls clickable" style="display: none;">
@@ -90,6 +103,7 @@
                                 </ol>
                             </div>
 
+
                             <div class="summary entry-summary">
                                 <div class="single-product-category">
                                     <a href="{% url 'shop' %}?category_id={{ product.productcategory.id }}" class="product-single-category  single-category">
@@ -97,22 +111,53 @@
                                     </a>
                                 </div>
                                 <h1 class="product_title entry-title">{{ product.name }}</h1>
-                                <div class="star-rating" title="Rated 4.50 out of 5">
-                                    <span style="width:90%">
-                                        <strong class="rating">4.50</strong> 
-                                        out of 5
+                                <div class="star" title="Rated 4.00 out of 5">
+                                    <span style="width:80%">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
                                     </span>
+                                    <style>
+                                        .star {
+                                            font-size: 24px;
+                                            display: inline-block;
+                                            position: relative;
+                                            font-family: "Arial", sans-serif;
+                                        }
+
+                                        .star::before {
+                                            content: "★★★★★"; /* 5 ta yulduz */
+                                            color: #ccc; /* Bo‘sh yulduzlar (kulrang) */
+                                        }
+
+                                        .star span {
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            white-space: nowrap;
+                                            overflow: hidden;
+                                            color: #FFD700; /* Oltin rang */
+                                            width: 80%; /* 4 yulduz to‘ldirilgan bo‘lishi uchun */
+                                        }
+
+                                        .star span::before {
+                                            content: "★★★★★"; /* To‘ldirilgan yulduzlar */
+                                        }
+
+                                    </style>
                                 </div>
                                 <p class="price">
                                     <span class="woocommerce-Price-amount amount">
-                                        <bdi> {{ product.price }}-so'm </bdi>
+                                        <bdi> {{ product.price }} </bdi>
                                     </span>
                                 </p>
                                 <div class="woocommerce-product-details__short-description">
                                     <p>{{ product.text }}</p>
                                 </div>
 
-                                <form class="variations_form cart" action="" method="post">
+                                <form class="variations_form cart" action="">
                                     <div class="single_variation_wrap">
                                         <div class="woocommerce-variation-add-to-cart variations_button ">
                                             <div class="quantity spinners-added">
@@ -121,11 +166,11 @@
                                                 <input type="button" value="+" class="plus">
                                             </div>
                                             <button type="submit" class=" button alt">Savatchaga qo'shish</button>
-                                            <button class="woosw-btn woosw-btn-11284 woosw-btn-has-icon woosw-btn-icon-only">
-                                                <span class="woosw-btn-icon woosw-icon-5"></span>
+                                            <button class="woosw-btn woosw-btn-has-icon">
+                                                <i class="fa-regular fa-heart"></i>
                                             </button>
                                             <button class="woosc-btn woosc-btn-11284 woosc-btn-has-icon woosc-btn-icon-only">
-                                                <span class="woosc-btn-icon woosc-icon-13"></span>
+                                                <i class="fas fa-exchange-alt"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -183,12 +228,11 @@
                                     </li>
                                 </ul>
 
-                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab" id="tab-description" role="tabpanel" aria-labelledby="tab-title-description">
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--description panel entry-content wc-tab" id="tab-description" role="tabpanel" aria-labelledby="tab-title-description" style="display: none;">
                                     {{product.content|safe}}
                                 </div>
 
-                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab"
-                                    id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews" style="display: none;">
+                                <div class="woocommerce-Tabs-panel woocommerce-Tabs-panel--reviews panel entry-content wc-tab" id="tab-reviews" role="tabpanel" aria-labelledby="tab-title-reviews" style="display: none;">
                                     <div id="reviews" class="woocommerce-Reviews">
                                         <div id="comments">
                                             <h2 class="woocommerce-Reviews-title">
@@ -197,11 +241,15 @@
                                             <ol class="commentlist">
                                                 <li class="review even thread-even depth-1" id="li-comment-11">
                                                     <div id="comment-11" class="comment_container">
-                                                        <img alt="" src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g" srcset="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=120&amp;d=mm&amp;r=g 2x" class="avatar avatar-60 photo" height="60" width="60" loading="lazy" decoding="async">
+                                                        <img alt="" src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g" height="60" width="60">
                                                         <div class="comment-text">
-                                                            <div class="star-rating" title="Rated 5 out of 5">
-                                                                <span style="width:100%">
-                                                                    <strong class="rating">5</strong> out of 5
+                                                            <div class="star" title="Rated 4 out of 5">
+                                                                <span style="width:80%">
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
                                                                 </span>
                                                             </div>
                                                             <p class="meta">
@@ -209,51 +257,40 @@
                                                                     admin
                                                                 </strong>
                                                                 <span class="woocommerce-review__dash">–</span> 
-                                                                <time class="woocommerce-review__published-date" datetime="2023-06-19T11:38:30+00:00">June 19, 2023</time>
+                                                                <time class="woocommerce-review__published-date">2025/02/09</time>
                                                             </p>
-
                                                             <div class="description">
-                                                                <p>There are many variations of passages of Lorem Ipsum
-                                                                    available, but the majority have suffered alteration
-                                                                    in some form, by injected humour, or randomised
-                                                                    words which don\’t look even slightly believable.
-                                                                </p>
+                                                                <p>Men bu bu pomidor urugini olib ekgan edim zo'r bo'ldi hammaga tavsiya etaman </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li><!-- #comment-## -->
-                                                <li class="review odd alt thread-odd thread-alt depth-1"
-                                                    id="li-comment-12">
-
+                                                </li>
+                                                <li class="review odd alt thread-odd thread-alt depth-1" id="li-comment-12">
                                                     <div id="comment-12" class="comment_container">
-
-                                                        <img alt=""
-                                                            src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g"
-                                                            srcset="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=120&amp;d=mm&amp;r=g 2x"
-                                                            class="avatar avatar-60 photo" height="60" width="60"
-                                                            loading="lazy" decoding="async">
+                                                        <img alt="" src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g" class="avatar  avatar-60 photo" height="60" width="60">
                                                         <div class="comment-text">
-
-                                                            <div class="star-rating" title="Rated 4 out of 5"><span
-                                                                    style="width:80%"><strong class="rating">4</strong>
-                                                                    out of 5</span></div>
+                                                            <div class="star" title="Rated 4 out of 5">
+                                                                <span style="width:80%">
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="fas fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                </span>
+                                                            </div>
                                                             <p class="meta">
                                                                 <strong class="woocommerce-review__author">admin
                                                                 </strong>
-                                                                <span class="woocommerce-review__dash">–</span> <time
-                                                                    class="woocommerce-review__published-date"
-                                                                    datetime="2023-06-19T11:38:42+00:00">June 19,
-                                                                    2023</time>
+                                                                <span class="woocommerce-review__dash">–</span> 
+                                                                <time class="woocommerce-review__published-date" >2025/02/10 </time>
                                                             </p>
 
                                                             <div class="description">
-                                                                <p>Various versions have evolved over the years,
-                                                                    sometimes by accident, sometimes on purpose
-                                                                    (injected humour and the like).</p>
+                                                                <p>Men bu bu pomidor urugini olib ekgan edim zo'r bo'ldi hammaga tavsiya etaman </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </li><!-- #comment-## -->
+                                                </li>
                                             </ol>
                                         </div>
 
@@ -279,22 +316,22 @@
                                                                 <span class="required">*</span>
                                                             </label>
                                                             <p class="stars"> 
-                                                                <span> 
-                                                                    <a class="star-1" href="#">1</a> 
-                                                                    <a class="star-2" href="#">2</a> 
-                                                                    <a class="star-3" href="#">3</a> 
-                                                                    <a class="star-4" href="#">4</a>
-                                                                    <a class="star-5" href="#">5</a> 
-                                                                </span> 
+                                                                <span>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                    <i class="far fa-star"></i>
+                                                                </span>
                                                             </p>
-                                                            <select name="rating" id="rating" required="" style="display: none;">
+                                                            <!-- <select name="rating" id="rating" required="" style="display: none;">
                                                                 <option value="">Rate…</option>
                                                                 <option value="5">Perfect</option>
                                                                 <option value="4">Good</option>
                                                                 <option value="3">Average</option>
                                                                 <option value="2">Not that bad</option>
                                                                 <option value="1">Very poor</option>
-                                                            </select>
+                                                            </select> -->
                                                         </div>
                                                         <p class="comment-form-comment">
                                                             <label for="comment">Sizning sharhingiz&nbsp;
@@ -314,10 +351,10 @@
                                                             </label>
                                                             <input id="email" name="email" type="email" value="" size="30" required="">
                                                         </p>
-                                                        <p class="comment-form-cookies-consent">
+                                                        <!-- <p class="comment-form-cookies-consent">
                                                             <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> 
                                                             <label for="wp-comment-cookies-consent">Keyingi safar sharhlashim uchun ismim, elektron pochta manzilim va veb-saytimni ushbu brauzerda saqlang.</label>
-                                                        </p>
+                                                        </p> -->
                                                         <p class="form-submit">
                                                             <input name="submit" type="submit" id="submit" class="submit" value="Yuborish"> 
                                                             <input type="hidden" name="comment_post_ID" value="11284" id="comment_post_ID">
@@ -329,32 +366,57 @@
                                         </div> 
                                     </div>
                                 </div>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function() {
+                                    const descriptionTab = document.querySelector('#tab-title-description');
+                                    const reviewsTab = document.querySelector('#tab-title-reviews');
+                                    const descriptionPanel = document.querySelector('#tab-description');
+                                    const reviewsPanel = document.querySelector('#tab-reviews');
+
+                                    // By default, show description and hide reviews
+                                    descriptionPanel.style.display = 'block';
+                                    reviewsPanel.style.display = 'none';
+
+                                    descriptionTab.addEventListener('click', function() {
+                                        descriptionPanel.style.display = 'block';
+                                        reviewsPanel.style.display = 'none';
+                                        descriptionTab.classList.add('active');
+                                        reviewsTab.classList.remove('active');
+                                    });
+
+                                    reviewsTab.addEventListener('click', function() {
+                                        reviewsPanel.style.display = 'block';
+                                        descriptionPanel.style.display = 'none';
+                                        reviewsTab.classList.add('active');
+                                        descriptionTab.classList.remove('active');
+                                    });
+                                });
+
+                                </script>
                             </div>
 
                             <section class="related products">
-
                                 <h2>Tegishli mahsulotlar</h2>
-
                                 <ul class="products content-wrap product-archive grid-cols grid-ss-col-2 grid-sm-col-3 grid-lg-col-4 woo-archive-action-visible woo-archive-btn-button woo-archive-image-hover-fade owl-carousel owl-theme" >
                                     <div class="owl-wrapper-outer">
-                                        <div class="owl-wrapper" style="width: 6120px; left: 0px; display: block; transition: all; transform: translate3d(0px, 0px, 0px);">
+                                        <div class="owl-wrapper">
                                             {% for related in related_products %}
                                             <div class="owl-item" style="width: 306px;">
                                                 <li class="entry content-bg loop-entry product type-product post-705 status-publish first instock product_cat-power-tools product_cat-blades product_cat-cutting-tools product_cat-hand-tools product_cat-pressure-washers product_cat-safety-workwear has-post-thumbnail featured shipping-taxable purchasable product-type-variable has-default-attributes">
                                                     <div class="product-thumbnail">
                                                         <div class="archive-image-wrap">
                                                             <div class="archive-extra-button-wrap">
-                                                                <button class="woosw-btn woosw-btn-705 woosw-btn-has-icon woosw-btn-icon-only">
-                                                                    <span class="woosw-btn-icon woosw-icon-5"></span>
+                                                                <button class="woosw-btn woosw-btn-11284 woosw-btn-has-icon woosw-btn-icon-only">
+                                                                    <i class="fa-regular fa-heart"></i>
                                                                 </button>
-                                                                <button class="woosc-btn woosc-btn-705  woosc-btn-has-icon woosc-btn-icon-only">
-                                                                    <span class="woosc-btn-icon woosc-icon-13"></span>
+                                                                <button class="woosc-btn woosc-btn-11284  woosc-btn-has-icon woosc-btn-icon-only">
+                                                                    <i class="fas fa-exchange-alt"></i>
                                                                 </button>
-                                                                <button class="woosq-btn woosq-btn-705 woosq-btn-has-icon woosq-btn-icon-only">
-                                                                    <span class="woosq-btn-icon woosq-icon-1"></span>
+                                                                <button class="woosq-btn woosq-btn-11284 woosq-btn-has-icon woosq-btn-icon-only">
+                                                                    <i class="fa-duotone fa-solid fa-eye"></i>
                                                                 </button>
                                                             </div>
-                                                            <a href="#" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
+                                                            <a href="{% url 'shop_view' related.id %}" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
                                                                 {% for image in related.images.all|slice:":2" %}
                                                                 {% if forloop.counter == 1 %}
                                                                 <img width="242" height="242" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" >
@@ -369,14 +431,46 @@
                                                         <h2 class="woocommerce-loop-product__title">
                                                             <a href="{% url 'shop_view' related.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{related.name}}</a>
                                                         </h2>
-                                                        <!-- <div class="star-rating" title=" ">
-                                                            <span style="width:100%">
-                                                                <strong class="rating">5.00</strong>
-                                                                out of 5</span>
-                                                            </div> -->
+                                                        <div class="star" title="Rated 4.00 out of 5">
+                                                            <span style="width:80%">
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="fas fa-star"></i>
+                                                                <i class="far fa-star"></i>
+                                                            </span>
+                                                            <style>
+                                                                .star {
+                                                                    font-size: 24px;
+                                                                    display: inline-block;
+                                                                    position: relative;
+                                                                    font-family: "Arial", sans-serif;
+                                                                }
+
+                                                                .star::before {
+                                                                    content: "★★★★★"; /* 5 ta yulduz */
+                                                                    color: #ccc; /* Bo‘sh yulduzlar (kulrang) */
+                                                                }
+
+                                                                .star span {
+                                                                    position: absolute;
+                                                                    top: 0;
+                                                                    left: 0;
+                                                                    white-space: nowrap;
+                                                                    overflow: hidden;
+                                                                    color: #FFD700; /* Oltin rang */
+                                                                    width: 80%; /* 4 yulduz to‘ldirilgan bo‘lishi uchun */
+                                                                }
+
+                                                                .star span::before {
+                                                                    content: "★★★★★"; /* To‘ldirilgan yulduzlar */
+                                                                }
+
+                                                            </style>
+                                                        </div>
                                                         <span class="price">
                                                             <span class="woocommerce-Price-amount amount">
-                                                                <bdi> {{related.price}}-so'm</bdi>
+                                                                <bdi> {{related.price}}</bdi>
                                                             </span>
                                                         </span>
                                                         <div class="product-action-wrap style-button">
@@ -390,19 +484,8 @@
                                             {% endfor %}
                                         </div>
                                     </div>
-
-
-
-                                    <div class="owl-controls clickable">
-                                        <div class="owl-buttons">
-                                            <div class="owl-prev">prev</div>
-                                            <div class="owl-next">next</div>
-                                        </div>
-                                    </div>
                                 </ul>
-
                             </section>
-
                         </div>
                     </main>
                 </div>

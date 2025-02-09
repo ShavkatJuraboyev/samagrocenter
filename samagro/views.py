@@ -7,7 +7,8 @@ from django.core.paginator import Paginator
 
 def home(request):
     product_categorys = ProductCategory.objects.filter(parent__isnull=True).prefetch_related('children').order_by('id')
-
+    new_products = Products.objects.all().order_by('-id')[:5]
+    discount_products = Products.objects.filter(is_discount=True).all()[:6]
     def get_all_child_categories(category):
         """Ota kategoriya uchun barcha ichki (bola) kategoriyalar ID larini qaytaradi"""
         child_ids = [category.id]
@@ -26,6 +27,8 @@ def home(request):
 
     context = {
         "product_categorys":product_categorys,
+        "new_products":new_products,
+        "discount_products":discount_products,
         'categories_with_counts': categories_with_counts,  # Yangilangan kontekst
     }
     return render(request, 'home/index.html', context=context)
@@ -53,12 +56,12 @@ def shop(request):
                 continue
 
         # Tanlangan kategoriya yoki ularning bolalariga tegishli mahsulotlarni olish
-        products = Products.objects.filter(productcategory_id__in=all_category_ids)
+        products = Products.objects.filter(productcategory_id__in=all_category_ids).order_by('-id')
     else:
-        products = Products.objects.all()  # Agar kategoriya tanlanmasa, barcha mahsulotlarni chiqaramiz
+        products = Products.objects.all().order_by('-id')  # Agar kategoriya tanlanmasa, barcha mahsulotlarni chiqaramiz
 
 
-    paginator = Paginator(products, 6)  # Har bir sahifada 5 ta yangilik
+    paginator = Paginator(products, 20)  # Har bir sahifada 5 ta yangilik
     page_number = request.GET.get('page')
     paginated_posts = paginator.get_page(page_number)
 
