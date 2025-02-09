@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS kodi tasdiqlash</title>
+</head>
+<body>
+    <h2>SMS kodi tasdiqlash</h2>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="code">Tasdiqlash kodi:</label><br>
+        <input type="text" name="code" id="code" required><br><br>
+        
+        <button type="submit">Tasdiqlash</button>
+    </form>
+    <br>
+    <p>SMS kodni olishda muammo yuzaga keldi? <a href="{% url 'register' %}">Ro‘yxatdan o‘tish</a></p>
+</body>
+</html>

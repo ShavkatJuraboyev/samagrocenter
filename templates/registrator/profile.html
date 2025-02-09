@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foydalanuvchi Profili</title>
+</head>
+<body>
+    <h2>{{ user.first_name }} {{ user.last_name }} ning profili</h2>
+    <p>Telefon raqam: {{ user.phone }}</p>
+    <a href="{% url 'logout' %}">Chiqish</a>
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from samagro.models import ProductCategory, Products, ProductPicture
+from samagro.models import ProductCategory, Products, ProductPicture, Users, Order
 # Register your models here.
 
 
@@ -14,3 +14,7 @@ admin.site.register(ProductPicture)
 @admin.register(Products)  
 class ProductsAdmin(admin.ModelAdmin): 
     list_display = ('name', 'price', 'created_at')  
+
+
+admin.site.register(Users)
+admin.site.register(Order)
