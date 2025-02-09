@@ -1,5 +1,5 @@
 from django.contrib import admin
-from samagro.models import ProductCategory, Products, ProductPicture, Users, Order
+from samagro.models import ProductCategory, Products, ProductPicture, Users, Order, News
 # Register your models here.
 
 
@@ -18,3 +18,13 @@ class ProductsAdmin(admin.ModelAdmin):
 
 admin.site.register(Users)
 admin.site.register(Order)
+
+@admin.register(News) 
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at',)
+    search_fields = ('title', )  # Qidiruv maydonlari
+    fieldsets = (
+        ('Umumiy maʼlumotlar', {
+            'fields': ('image', 'title', 'text', 'content'),
+        }),
+    )

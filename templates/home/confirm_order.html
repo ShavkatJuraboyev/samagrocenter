@@ -1,0 +1,251 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<body
+    class="page-template-default page page-id-13 wp-custom-logo wp-embed-responsive theme-avanam woocommerce-checkout woocommerce-page woocommerce-js footer-on-bottom hide-focus-outline link-style-no-underline content-title-style-above content-width-normal content-style-unboxed content-vertical-padding-show non-transparent-header mobile-non-transparent-header base-elementor-colors elementor-default elementor-kit-7">
+    <div id="wrapper" class="site wp-site-blocks">
+        {% include 'base/header.html' %}
+        
+
+        <section role="banner" class="entry-hero page-hero-section entry-hero-layout-standard">
+            <div class="entry-hero-container-inner">
+                <div class="hero-container site-container">
+                    <header
+                        class="entry-header page-title title-align-left title-tablet-align-left title-mobile-align-left">
+                        <nav id="base-breadcrumbs" aria-label="Breadcrumbs" class="base-breadcrumbs">
+                            <div class="base-breadcrumb-container">
+                                <span>
+                                    <a href="/" class="base-bc-home">
+                                        <span>Bosh saxifa</span>
+                                    </a>
+                                </span>
+                                <span class="bc-delimiter">/</span>
+                                <span class="base-bread-current">Checkout</span>
+                            </div>
+                        </nav>
+                        <h1 class="entry-title">Checkout</h1>
+                    </header>
+                </div>
+            </div>
+        </section><!-- .entry-hero -->
+        <div id="primary" class="content-area">
+            <div class="content-container site-container">
+                <main id="main" class="site-main" role="main">
+                    <div class="content-wrap">
+                        <article id="post-13" class="entry content-bg single-entry post-13 page type-page status-publish hentry">
+                            <div class="entry-content-wrap">
+                                <div class="entry-content single-content">
+                                    <div class="woocommerce">
+                                        <form name="checkout" method="post" class="checkout woocommerce-checkout">
+                                            {% csrf_token %}
+                                            <div class="col2-set" id="customer_details">
+                                                <div class="col-1">
+                                                    <div class="woocommerce-billing-fields">
+                                                        <h3>Hisob-kitob tafsilotlari</h3>
+                                                        <div class="woocommerce-billing-fields__field-wrapper">
+                                                            <p class="form-row form-row-first validate-required" id="billing_first_name_field" data-priority="10">
+                                                                <label for="billing_first_name" class="">Ism&nbsp;
+                                                                    <abbr class="required" title="required">*</abbr>
+                                                                </label>
+                                                                <span class="woocommerce-input-wrapper">
+                                                                    <input type="text" class="input-text " value="{{request.user.first_name}}" readonly>
+                                                                </span>
+                                                            </p>
+                                                            <p class="form-row form-row-last validate-required" id="billing_last_name_field" data-priority="20">
+                                                                <label for="billing_last_name" class="">Familiya&nbsp;
+                                                                    <abbr class="required" title="required">*</abbr>
+                                                                </label>
+                                                                <span class="woocommerce-input-wrapper">
+                                                                    <input type="text" class="input-text" value="{{request.user.last_name}}" readonly >
+                                                                </span>
+                                                            </p>
+                                                            
+                                                            <p class="form-row form-row-wide validate-required validate-phone" id="billing_phone_field" data-priority="100">
+                                                                <label for="billing_phone" class="">Telefon&nbsp;
+                                                                    <abbr class="required" title="required">*</abbr>
+                                                                </label>
+                                                                <span class="woocommerce-input-wrapper">
+                                                                    <input type="tel" class="input-text " value="{{request.user.phone}}" readonly>
+                                                                </span>
+                                                            </p>   
+                                                            <p class="form-row address-field validate-required form-row-wide" id="billing_address_1_field" data-priority="50">
+                                                                <label for="billing_address_1" class="">Ko'cha manzili&nbsp;
+                                                                    <abbr class="required" title="required">*</abbr>
+                                                                </label>
+                                                                <span class="woocommerce-input-wrapper">
+                                                                    <input type="text" class="input-text " name="billing_address_1" id="billing_address_1" placeholder="Uy raqami va ko'cha nomi" value="" autocomplete="address-line1" data-placeholder="Uy raqami va ko'cha nomi" required>
+                                                                </span>
+                                                            </p>
+                                                            <p class="form-row address-field validate-required form-row-wide" id="billing_city_field" data-priority="70" data-o_class="form-row form-row-wide address-field validate-required">
+                                                                <label for="billing_city" class="">Shahar/Tuman&nbsp;
+                                                                    <abbr class="required" title="required">*</abbr>
+                                                                </label>
+                                                                <span class="woocommerce-input-wrapper">
+                                                                    <input type="text" class="input-text " name="billing_city" id="billing_city" placeholder="" value=""  autocomplete="address-level2" required>
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-2">
+                                                    <div class="woocommerce-additional-fields">
+                                                        <div class="woocommerce-additional-fields__field-wrapper">
+                                                            <p class="form-row notes" id="order_comments_field">
+                                                                <label for="order_comments" class="">Buyurtma eslatmalari &nbsp;
+                                                                    <span class="optional">(ixtiyoriy)</span>
+                                                                </label>
+                                                                <span class="woocommerce-input-wrapper">
+                                                                    <textarea name="order_comments" class="input-text "id="order_comments" placeholder="Buyurtmangiz haqida eslatmalar, masalan. yetkazib berish uchun maxsus eslatmalar." rows="2" cols="5">
+                                                                    </textarea>
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <h3 id="order_review_heading">Sizning buyurtmangiz</h3>
+
+                                            <div id="order_review" class="woocommerce-checkout-review-order">
+                                                <table class="shop_table woocommerce-checkout-review-order-table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="product-name">Mahsulot</th>
+                                                            <th class="product-total">So'm</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {% for item in cart %}
+                                                            <tr class="cart_item">
+                                                                <td class="product-name">
+                                                                    {{ item.name }}&nbsp; 
+                                                                    <strong class="product-quantity">×&nbsp;{{ item.quantity }}</strong> 
+                                                                </td>
+                                                                <td class="product-total">
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <bdi>
+                                                                            {{ item.price }}
+                                                                        </bdi>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        {% empty %}
+                                                            <tr>
+                                                                <td colspan="2" class="text-center">
+                                                                    Savatingiz bo‘sh.
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+
+                                                        
+                                                    </tbody>
+                                                    <!-- <tfoot>
+
+                                                        <tr class="cart-subtotal">
+                                                            <th>Jami</th>
+                                                            <td>
+                                                                <span class="woocommerce-Price-amount amount">
+                                                                    <bdi>
+                                                                        <span class="woocommerce-Price-currencySymbol">$</span>
+                                                                        298.00
+                                                                    </bdi>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="woocommerce-shipping-totals shipping">
+                                                            <th>Shipping</th>
+                                                            <td data-title="Shipping">
+                                                                <ul id="shipping_method" class="woocommerce-shipping-methods">
+                                                                    <li>
+                                                                        <input type="hidden" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate1" value="flat_rate:1" class="shipping_method">
+                                                                            <label for="shipping_method_0_flat_rate1">Flat rate</label>
+                                                                    </li>
+                                                                </ul>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr class="order-total">
+                                                            <th>Total</th>
+                                                            <td>
+                                                                <strong>
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <bdi>
+                                                                            <span class="woocommerce-Price-currencySymbol">$</span>
+                                                                            298.00
+                                                                        </bdi>
+                                                                    </span>
+                                                                </strong>
+                                                            </td>
+                                                        </tr>
+
+                                                    </tfoot> -->
+                                                </table>
+
+                                                <div id="payment" class="woocommerce-checkout-payment">
+                                                    <ul class="wc_payment_methods payment_methods methods">
+                                                        <li class="wc_payment_method payment_method_bacs">
+                                                            <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked" data-order_button_text="">
+
+                                                            <label for="payment_method_bacs">To'g'ridan-to'g'ri bank o'tkazmasi</label>
+                                                            <div class="payment_box payment_method_bacs">
+                                                                <p>To'lovni to'g'ridan-to'g'ri bank hisobimizga o'tkazing. Iltimos, toʻlov maʼlumotnomasi sifatida Buyurtma identifikatoridan foydalaning. Bizning hisobimizdagi mablagʻlar oʻchirilmaguncha buyurtmangiz joʻnatilmaydi.</p>
+                                                            </div>
+                                                        </li>
+                                                        <li class="wc_payment_method payment_method_cod">
+                                                            <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="cod" data-order_button_text="">
+
+                                                            <label for="payment_method_cod"> Yetkazib berishda naqd pul</label>
+                                                            <div class="payment_box payment_method_cod" style="display:none;">
+                                                                <p>Yetkazib berishda naqd pul bilan to'lash.</p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="form-row place-order">
+
+                                                        <div class="woocommerce-terms-and-conditions-wrapper">
+                                                            <div class="woocommerce-privacy-policy-text">
+                                                                <p>Sizning shaxsiy ma'lumotlaringiz buyurtmangizni qayta ishlash, ushbu veb-saytdagi tajribangizni qo'llab-quvvatlash va bizning maqolamizda tasvirlangan boshqa maqsadlar uchun ishlatiladi 
+                                                                    <a href="#" class="woocommerce-privacy-policy-link" target="_blank">Maxfiylik siyosati</a>.
+                                                                </p>
+                                                            </div>
+                                                            <p class="form-row validate-required">
+                                                                <label class="woocommerce-form__label woocommerce-form__label-for-checkbox checkbox">
+                                                                    <input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" name="terms"  id="terms" required>
+                                                                    <span class="woocommerce-terms-and-conditions-checkbox-text">Men veb-sayt qoidalari va shartlarini <a href="#" class="woocommerce-terms-and-conditions-link"  target="_blank">o'qib chiqdim</a> va roziman
+                                                                        
+                                                                    </span>&nbsp;
+                                                                    <abbr class="required" title="required">*</abbr>
+                                                                </label>
+                                                                <input type="hidden" name="terms-field" value="1">
+                                                            </p>
+                                                        </div>
+
+
+                                                        <button type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Buyurtma berishr" data-value="Buyurtma berishr">Buyurtma berishr</button>
+
+                                                        <input type="hidden" id="ss" name="ss" value="dd">
+                                                        <input type="hidden" name="_wp_http_referer" value="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div><!-- .entry-content -->
+                            </div>
+                        </article><!-- #post-13 -->
+
+                    </div>
+                </main><!-- #main -->
+            </div>
+        </div><!-- #primary -->
+    </div>
+
+
+    {% include 'base/footer.html' %}
+    </div>
+    {% include 'base/js.html' %}
+</body>
+{% endblock content %}

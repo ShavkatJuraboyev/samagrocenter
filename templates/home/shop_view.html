@@ -7,7 +7,7 @@
 
     <div id="wrapper" class="site wp-site-blocks">
         {% include 'base/header.html' %}
-
+ 
         <div id="inner-wrap" class="wrap hfeed bst-clear">
             <section role="banner" class="entry-hero product-hero-section entry-hero-layout-standard">
                 <div class="entry-hero-container-inner">
@@ -157,15 +157,18 @@
                                     <p>{{ product.text }}</p>
                                 </div>
 
-                                <form class="variations_form cart" action="">
+                                <form class="variations_form cart">
+                                    {% csrf_token %}
                                     <div class="single_variation_wrap">
-                                        <div class="woocommerce-variation-add-to-cart variations_button ">
+                                        <div class="woocommerce-variation-add-to-cart variations_button">
                                             <div class="quantity spinners-added">
                                                 <input type="button" value="-" class="minus">
-                                                <input type="number" id="quantity_67a64ceccce49" class="input-text qty text" name="quantity" value="1" aria-label="Product quantity" size="4" min="1" max="" step="1" placeholder="" inputmode="numeric" autocomplete="off">
+                                                <input type="number" class="input-text qty text" name="quantity" value="1" min="1">
                                                 <input type="button" value="+" class="plus">
                                             </div>
-                                            <button type="submit" class=" button alt">Savatchaga qo'shish</button>
+                                            <button type="button" id="add-to-cart-btn" class="button alt" data-product-id="{{ product.id }}">
+                                                Savatchaga qo'shish
+                                            </button>
                                             <button class="woosw-btn woosw-btn-has-icon">
                                                 <i class="fa-regular fa-heart"></i>
                                             </button>
@@ -175,6 +178,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                
 
                                 <div class="single-product-extras">
                                     <p><strong>Free shipping on orders over $50!</strong></p>

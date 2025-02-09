@@ -1,0 +1,224 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+<body
+    class="page-template-default page page-id-12 wp-custom-logo wp-embed-responsive theme-avanam woocommerce-cart woocommerce-page woocommerce-js footer-on-bottom hide-focus-outline link-style-no-underline content-title-style-above content-width-normal content-style-unboxed content-vertical-padding-show non-transparent-header mobile-non-transparent-header base-elementor-colors elementor-default elementor-kit-7"
+    style="--scrollbar-offset: 0px;">
+    <div id="wrapper" class="site wp-site-blocks">
+        {% include 'base/header.html' %}
+        <div id="inner-wrap" class="wrap hfeed bst-clear">
+            <div class="side-mobile-toggle-open-container">
+                <button id="side-mobile-toggle" class="side-menu-toggle-open drawer-toggle">
+                    <span class="menu-toggle-icon">Open</span>
+                </button>
+            </div>
+            <section role="banner" class="entry-hero page-hero-section entry-hero-layout-standard">
+                <div class="entry-hero-container-inner">
+                    <div class="hero-section-overlay"></div>
+                    <div class="hero-container site-container">
+                        <header class="entry-header page-title title-align-left title-tablet-align-left title-mobile-align-left">
+                            <nav class="base-breadcrumbs">
+                                <div class="base-breadcrumb-container">
+                                    <span>
+                                        <a href="#" class="base-bc-home"><span>Bosh saxifa</span></a>
+                                    </span> 
+                                    <span class="bc-delimiter">/</span> <span class="base-bread-current">Savat</span>
+                                </div>
+                            </nav>
+                            <h1 class="entry-title">Savat</h1>
+                        </header><!-- .entry-header -->
+                    </div>
+                </div>
+            </section><!-- .entry-hero -->
+            <div id="primary" class="content-area">
+                <div class="content-container site-container">
+                    <main id="main" class="site-main" role="main">
+                        <div class="content-wrap">
+                            <article id="post-12"  class="entry content-bg single-entry post-12 page type-page status-publish hentry">
+                                <div class="entry-content-wrap">
+                                    <div class="entry-content single-content">
+                                        <div class="woocommerce">
+                                            <div class="base-woo-cart-form-wrap">
+                                                <form class="woocommerce-cart-form" >
+                                                    <div class="cart-summary">
+                                                        <h2>Cart Summary</h2>
+                                                    </div>
+                                                    <table class="shop_table shop_table_responsive cart ">
+                                                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="product-remove">
+                                                                    <span class="screen-reader-text"></span>
+                                                                </th>
+                                                                <th class="product-thumbnail">
+                                                                    <span class="screen-reader-text"></span>
+                                                                </th>
+                                                                <th class="product-name">Maxsulot</th>
+                                                                <th class="product-price">Narxi</th>
+                                                                <th class="product-quantity">Miqdori</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for item in cart %}
+                                                            <tr class="woocommerce-cart-form__cart-item cart_item">
+
+                                                                <td class="product-remove">
+                                                                    <a href="#" class="remove" data-product_id="{{ item.id }}">×</a> </td>
+
+                                                                <td class="product-thumbnail">
+                                                                    <a href="#">
+                                                                        <img width="242" height="242" src="{{ item.image }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="{{ item.name }}">
+                                                                    </a>
+                                                                </td>
+
+                                                                <td class="product-name" data-title="Product">
+                                                                    <a href="">{{ item.name }}</a> 
+                                                                </td>
+
+                                                                <td class="product-price" data-title="Price">
+                                                                    <span class="woocommerce-Price-amount amount">
+                                                                        <bdi>
+                                                                            {{ item.price }}
+                                                                        </bdi>
+                                                                    </span>
+                                                                </td>
+
+                                                                <td class="product-quantity" data-title="Quantity">
+                                                                    <div class="quantity spinners-added">
+                                                                        <input type="button" value="-" class="minus">
+                                                                        <label class="screen-reader-text">
+                                                                            {{ item.name }}
+                                                                        </label>
+                                                                        <input type="number" class="input-text qty text" name="quantity" value="{{ item.quantity }}" min="1">
+                                                                        <input type="button" value="+" class="plus">
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            {% empty %}
+                                                            <tr class="woocommerce-cart-form__cart-item cart_item">
+                                                                <th colspan="5">Savatda mahsulot yo‘q.</th>
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                                <script>
+                                                    document.addEventListener("DOMContentLoaded", function () {
+                                                        function updateCart(productId, action) {
+                                                            let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]")?.value;
+                                                            if (!csrfToken) {
+                                                                console.error("CSRF token topilmadi.");
+                                                                return;
+                                                            }
+                                                    
+                                                            fetch("/add-to-cart/", {
+                                                                method: "POST",
+                                                                headers: {
+                                                                    "X-CSRFToken": csrfToken,
+                                                                    "Content-Type": "application/x-www-form-urlencoded"
+                                                                },
+                                                                body: `product_id=${productId}&action=${action}`
+                                                            })
+                                                            .then(response => response.json())
+                                                            .then(data => {
+                                                                if (data.status === "success") {
+                                                                    location.reload(); // Sahifani yangilash
+                                                                } else {
+                                                                    console.error("Xatolik:", data.message);
+                                                                }
+                                                            })
+                                                            .catch(error => console.error("Server xatosi:", error));
+                                                        }
+                                                    
+                                                        document.querySelectorAll(".plus").forEach(button => {
+                                                            button.addEventListener("click", function () {
+                                                                let productId = this.closest("tr").querySelector(".remove").getAttribute("data-product_id");
+                                                                updateCart(productId, "increase");
+                                                            });
+                                                        });
+                                                    
+                                                        document.querySelectorAll(".minus").forEach(button => {
+                                                            button.addEventListener("click", function () {
+                                                                let productId = this.closest("tr").querySelector(".remove").getAttribute("data-product_id");
+                                                                updateCart(productId, "decrease");
+                                                            });
+                                                        });
+                                                    
+                                                        document.querySelectorAll(".remove").forEach(button => {
+                                                            button.addEventListener("click", function (event) {
+                                                                event.preventDefault();
+                                                                let productId = this.getAttribute("data-product_id");
+                                                                updateCart(productId, "remove");
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+                                                    
+
+                                                <div class="cart-collaterals">
+                                                    <div class="cart_totals ">
+
+                                                        <h2>Savatda jami</h2>
+
+                                                        <table cellspacing="0" class="shop_table shop_table_responsive">
+
+                                                            <tbody>
+                                                                <tr class="cart-subtotal">
+                                                                    <th>Maxsulotlar soni</th>
+                                                                    <td data-title="Subtotal">
+                                                                        <span class="woocommerce-Price-amount amount">
+                                                                            <bdi>
+                                                                                {% if cart %}
+                                                                                    {{ cart|length }}
+                                                                                {% else %}
+                                                                                    0
+                                                                                {% endif %}
+                                                                            </bdi>
+                                                                        </span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="order-total">
+                                                                    <th>Jami summa</th>
+                                                                    <td data-title="Total">
+                                                                        <strong>
+                                                                            <span class="woocommerce-Price-amount amount">
+                                                                                <bdi>510 000</bdi>
+                                                                            </span>
+                                                                        </strong>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                        {% if request.user.is_authenticated %}
+                                                            <div class="">
+                                                                <a href="{% url 'checkout' %}" class="checkout-button button">Yuborish</a>
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="">
+                                                                <a href="{% url 'login' %}" class="checkout-button button">Yuborish</a>
+                                                            </div>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- .entry-content -->
+                                </div>
+                            </article><!-- #post-12 -->
+
+                        </div>
+                    </main><!-- #main -->
+                </div>
+            </div><!-- #primary -->
+        </div><!-- #inner-wrap -->
+        {% include 'base/footer.html' %}
+    </div>
+    {% include 'base/js.html' %}
+
+</body>
+{% endblock content %}

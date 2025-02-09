@@ -127,7 +127,7 @@
 
     
 <script src="{% static 'wp-includes/js/jquery/jquery.min.js' %}" id="jquery-core-js"></script>
-<script src="{% static 'wp-includes/js/jquery/jquery-migrate.min.js' %}" id="jquery-migrate-js"></script>
+<!-- <script src="{% static 'wp-includes/js/jquery/jquery-migrate.min.js' %}" id="jquery-migrate-js"></script> -->
 <script src="{% static 'wp-content/themes/tooldic/assets/js/custom.js' %}" id="child-theme-js-js"></script>
 <script src="{% static 'wp-content/themes/tooldic/assets/js/owlcarousel.min.js' %}" id="child-owl-carousel-js"></script>
 <script src="{% static 'wp-content/themes/tooldic/assets/js/countdown.min.js' %}?" id="countdown-js-js"></script>
@@ -215,32 +215,67 @@
     )();
 </script>
 
-<!-- <div id="cart-drawer" class="popup-drawer popup-drawer-layout-sidepanel popup-drawer-side-right popup-mobile-drawer-side-right show-drawer active pop-animated" data-drawer-target-string="#cart-drawer">
-    <div class="drawer-overlay" data-drawer-target-string="#cart-drawer"></div>
-    <div class="drawer-inner">
-        <div class="drawer-header">
-            <h2 class="side-cart-header">Tanlangan maxsulotlar</h2>
-            <button class="cart-toggle-close drawer-toggle" aria-label="Close Cart" data-toggle-target="#cart-drawer" data-toggle-body-class="showing-popup-drawer-from-right" aria-expanded="true" data-set-focus=".header-cart-button" value="">
-                <span class="base-svg-iconset">
-                    <svg class="base-svg-icon base-close-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M5.293 6.707l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0l5.293-5.293 5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-5.293 5.293-5.293-5.293c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414z">
-                        </path>
-                    </svg>
-                </span> 
-            </button>
-        </div>
-        <div class="drawer-content woocommerce widget_shopping_cart">
-            <div class="mini-cart-container">
-                <div class="base-mini-cart-refresh">
 
-                    <p class="woocommerce-mini-cart__empty-message">Savatda mahsulot yo‘q.</p>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let addToCartButton = document.getElementById("add-to-cart-btn");
 
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+    if (addToCartButton) {
+        addToCartButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            
+            let productId = this.getAttribute("data-product-id");
+            let quantity = parseInt(document.querySelector(".input-text.qty").value);
+
+            // CSRF tokenni olish (Django avtomatik qo‘shadigan inputdan)
+            let csrfToken = document.querySelector("input[name='csrfmiddlewaretoken']").value;
+
+            fetch("/add-to-cart/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `product_id=${productId}&quantity=${quantity}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    localStorage.setItem("cart", JSON.stringify(data.cart));
+                    alert("Mahsulot savatchaga qo‘shildi!");
+                    location.reload(); // Sahifani yangilash
+                } else {
+                    alert("Xatolik yuz berdi: " + data.message);
+                }
+            })
+            .catch(error => console.error("Xatolik:", error));
+        });
+    }
+});
+</script>
+
+    
+
+<a id="bst-scroll-up" tabindex="-1" aria-hidden="true" aria-label="Scroll to top" href="#wrapper" class="base-scroll-to-top scroll-up-wrap scroll-ignore scroll-up-side-right scroll-up-style-filled vs-lg-true vs-md-true vs-sm-false scroll-visible">
+    <span class="base-svg-iconset">
+        <svg aria-hidden="true" class="base-svg-icon base-arrow-up-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <title>Scroll to top</title>
+            <path
+                d="M5.707 12.707l5.293-5.293v11.586c0 0.552 0.448 1 1 1s1-0.448 1-1v-11.586l5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-7-7c-0.092-0.092-0.202-0.166-0.324-0.217s-0.253-0.076-0.383-0.076c-0.256 0-0.512 0.098-0.707 0.293l-7 7c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z">
+            </path>
+        </svg>
+    </span>
+</a>
+<button id="bst-scroll-up-reader" href="#wrapper" aria-label="Scroll to top" class="base-scroll-to-top scroll-up-wrap scroll-ignore scroll-up-side-right scroll-up-style-filled vs-lg-true vs-md-true vs-sm-false">
+    <span class="base-svg-iconset">
+        <svg aria-hidden="true" class="base-svg-icon base-arrow-up-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <title>Scroll to top</title>
+            <path
+                d="M5.707 12.707l5.293-5.293v11.586c0 0.552 0.448 1 1 1s1-0.448 1-1v-11.586l5.293 5.293c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414l-7-7c-0.092-0.092-0.202-0.166-0.324-0.217s-0.253-0.076-0.383-0.076c-0.256 0-0.512 0.098-0.707 0.293l-7 7c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z">
+            </path>
+        </svg>
+    </span>
+</button>
 
 <div id="widget-drawer" class="popup-drawer popup-drawer-layout-sidepanel popup-drawer-side-left" data-drawer-target-string="#widget-drawer">
     <div class="drawer-overlay" data-drawer-target-string="#widget-drawer"></div>
@@ -363,11 +398,11 @@
 
 
 
-<script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js' %}" id="wc-add-to-cart-js"></script>
+<!-- <script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js' %}" id="wc-add-to-cart-js"></script> -->
 <script src="{% static 'wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js' %}" id="js-cookie-js"></script>
 
 
-<script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js' %}" id="woocommerce-js"></script>
+<!-- <script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js' %}" id="woocommerce-js"></script> -->
 <script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/print/jQuery.print.js' %}" id="print-js"></script>
 <script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/table-head-fixer/table-head-fixer.js' %}" id="table-head-fixer-js"></script>
 <script src="{% static 'wp-content/plugins/woo-smart-compare/assets/libs/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js' %}" id="perfect-scrollbar-js"></script>
@@ -376,27 +411,27 @@
 <script src="{% static 'wp-includes/js/jquery/ui/mouse.min.js' %}" id="jquery-ui-mouse-js"></script>
 <script src="{% static 'wp-includes/js/jquery/ui/sortable.min.js' %}" id="jquery-ui-sortable-js"></script>
 
-<script src="{% static 'wp-content/plugins/woo-smart-compare/assets/js/frontend.js' %}" id="woosc-frontend-js"></script>
+<!-- <script src="{% static 'wp-content/plugins/woo-smart-compare/assets/js/frontend.js' %}" id="woosc-frontend-js"></script> -->
 <script src="{% static 'wp-includes/js/underscore.min.js' %}" id="underscore-js"></script>
 
 
 <script src="{% static 'wp-includes/js/wp-util.min.js' %}" id="wp-util-js"></script>
 
-<script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart-variation.min.js' %}" id="wc-add-to-cart-variation-js"></script>
+<!-- <script src="{% static 'wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart-variation.min.js' %}" id="wc-add-to-cart-variation-js"></script> -->
 <script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/libs/slick/slick.min.js' %}" id="slick-js"></script>
 <script src="{% static 'wp-content/plugins/woocommerce/assets/js/zoom/jquery.zoom.min.js' %}" id="zoom-js"></script>
 <script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/libs/magnific-popup/jquery.magnific-popup.min.js' %}" id="magnific-popup-js"></script>
 
-<script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/js/frontend.js' %}" id="woosq-frontend-js"></script>
+<!-- <script src="{% static 'wp-content/plugins/woo-smart-quick-view/assets/js/frontend.js' %}" id="woosq-frontend-js"></script>
 
-<script src="{% static 'wp-content/plugins/woo-smart-wishlist/assets/js/frontend.js' %}" id="woosw-frontend-js"></script>
+<script src="{% static 'wp-content/plugins/woo-smart-wishlist/assets/js/frontend.js' %}" id="woosw-frontend-js"></script> -->
 
 <script src="{% static 'wp-content/themes/avanam/assets/js/navigation.min.js' %}" id="base-navigation-js" async></script>
 <script src="{% static 'wp-content/themes/avanam/assets/js/shop-spinner.min.js' %}" id="base-shop-spinner-js" async></script>
 <script src="{% static 'wp-includes/js/jquery/ui/slider.min.js' %}" id="jquery-ui-slider-js"></script>
 <script src="{% static 'wp-content/plugins/woocommerce/assets/js/jquery-ui-touch-punch/jquery-ui-touch-punch.min.js' %}" id="wc-jquery-ui-touchpunch-js"></script>
 
-<script src="{% static 'wp-content/plugins/filter-everything/assets/js/filter-everything.min.js' %}" id="wpc-filter-everything-js"></script>
+<!-- <script src="{% static 'wp-content/plugins/filter-everything/assets/js/filter-everything.min.js' %}" id="wpc-filter-everything-js"></script> -->
 
 <script id="base-shop-toggle-js-extra">
     var baseShopConfig = {
@@ -404,7 +439,8 @@
     };
 </script>
 <script src="{% static 'wp-content/themes/avanam/assets/js/shop-toggle.min.js' %}" id="base-shop-toggle-js" async></script>
-<script id="wc-single-product-js-extra">
+
+<!-- <script id="wc-single-product-js-extra">
     var wc_single_product_params = {
         "i18n_required_rating_text": "Please select a rating",
         "review_rating_required": "yes",
@@ -431,6 +467,6 @@
         },
         "flexslider_enabled": "1"
     };
-</script>
+</script> -->
 
   

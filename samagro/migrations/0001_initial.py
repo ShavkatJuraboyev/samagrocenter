@@ -77,21 +77,4 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'Maxsulotlar',
             },
         ),
-        migrations.CreateModel(
-            name='Order',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('address', models.CharField(blank=True, max_length=250, null=True, verbose_name="Ko'cha manzili")),
-                ('state', models.CharField(blank=True, max_length=50, null=True, verbose_name="Ko'chas nomi")),
-                ('total_price', models.DecimalField(decimal_places=2, max_digits=10, verbose_name='Jami narx')),
-                ('status', models.CharField(choices=[('pending', 'Kutish'), ('confirmed', 'Tasdiqlangan'), ('shipped', 'Jo‘natilgan')], default='pending', max_length=20, verbose_name='Holati')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Yaratilgan vaqt')),
-                ('products', models.ManyToManyField(to='samagro.products', verbose_name='Maxsulotlar')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='samagro.users', verbose_name='Foydalanuvchi')),
-            ],
-            options={
-                'verbose_name': 'Buyurtma',
-                'verbose_name_plural': 'Buyurtmalar',
-            },
-        ),
     ]

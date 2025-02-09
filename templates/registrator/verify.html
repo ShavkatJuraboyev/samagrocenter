@@ -1,23 +1,76 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMS kodi tasdiqlash</title>
-</head>
-<body>
-    <h2>SMS kodi tasdiqlash</h2>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    <form method="POST">
-        {% csrf_token %}
-        <label for="code">Tasdiqlash kodi:</label><br>
-        <input type="text" name="code" id="code" required><br><br>
-        
-        <button type="submit">Tasdiqlash</button>
-    </form>
-    <br>
-    <p>SMS kodni olishda muammo yuzaga keldi? <a href="{% url 'register' %}">Ro‘yxatdan o‘tish</a></p>
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="page-template-default page page-id-14 wp-custom-logo wp-embed-responsive theme-avanam woocommerce-account woocommerce-page woocommerce-js footer-on-bottom link-style-no-underline content-title-style-above content-width-normal content-style-unboxed content-vertical-padding-show non-transparent-header mobile-non-transparent-header base-elementor-colors base-account-nav-left elementor-default elementor-kit-7 hide-focus-outline">
+    <div id="wrapper" class="site wp-site-blocks">
+        {% include 'base/header.html' %}
+
+        <div id="inner-wrap" class="wrap hfeed bst-clear">
+            <section role="banner" class="entry-hero page-hero-section entry-hero-layout-standard">
+                <div class="entry-hero-container-inner">
+                    <div class="hero-container site-container">
+                        <header class="entry-header page-title title-align-left title-tablet-align-left title-mobile-align-left">
+                            <nav class="base-breadcrumbs">
+                                <div class="base-breadcrumb-container">
+                                    <span>
+                                        <a href="/" class="base-bc-home">
+                                            <span>Bosh saxifa</span>
+                                        </a>
+                                    </span> 
+                                    <span class="bc-delimiter">/</span> 
+                                    <span class="base-bread-current">SMS kod</span>
+                                </div>
+                            </nav>
+                            <h1 class="entry-title">SMS kod</h1>
+                        </header><!-- .entry-header -->
+                    </div>
+                </div>
+            </section><!-- .entry-hero -->
+            <div id="primary" class="content-area">
+                <div class="content-container site-container">
+                    <main class="site-main">
+                        <div class="content-wrap">
+                            <article id="post-14" class="entry content-bg single-entry post-14 page type-page status-publish hentry">
+                                <div class="entry-content-wrap">
+                                    <div class="entry-content single-content">
+                                        <div class="woocommerce">
+                                            <div class="u-columns col2-set">
+
+                                                <div class="u-column1 col-1">
+                                                    <h2>SMS kodni kiritng</h2>
+                                                    <form class="woocommerce-form woocommerce-form-login login" method="post">
+                                                        {% csrf_token %}
+                                                        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                                            <label for="username">SMS kod&nbsp;
+                                                                <span class="required">*</span>
+                                                            </label>
+                                                            <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="code" id="code" required>
+                                                        </p>
+
+                                                        <p class="form-row">
+                                                            <button type="submit" class="woocommerce-button button woocommerce-form-login__submit">TAsdiqlash</button>
+                                                        </p>
+                                                        <p class="woocommerce-LostPassword lost_password">
+                                                            SMS kodni olishda muammo yuzaga keldi? <a href="{% url 'register' %}">Ro‘yxatdan o‘tish</a>
+                                                        </p>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        {% include 'base/footer.html' %}
+    </div>
+    {% include 'base/js.html' %}
 </body>
-</html>
+{% endblock content %}
