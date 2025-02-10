@@ -26,8 +26,14 @@ SECRET_KEY = 'django-insecure-b4d7iz8nwbhb-4-e*d1*9(ihf3^o_!*+@kywal75&yq1*jfao&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["172.20.20.16", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["www.samagro.samtuit.uz", "samagro.samtuit.uz", "172.20.20.16", "127.0.0.1", "localhost"]
 
+CSRF_TRUSTED_ORIGINS = ['https://samagro.samtuit.uz', 'https://www.samagro.samtuit.uz']
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
