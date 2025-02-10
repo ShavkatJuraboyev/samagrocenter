@@ -184,11 +184,11 @@
                                     <div class="site-header-main-section-center site-header-section site-header-section-center">
                                         <div class="site-header-item site-header-focus-item" data-section="base_customizer_header_search_bar">
                                             <div class="header-search-bar header-item-search-bar">
-                                                <form role="search" method="get" class="woocommerce-product-search" action="">
-                                                    <label class="screen-reader-text" for="woocommerce-product-search-field-0">Qidirish uchun:</label>
-                                                    <input type="search" id="woocommerce-product-search-field-0" class="search-field" placeholder="Maxsulot qidirish&hellip;" value="" name="s"/>
+                                                <form role="search" method="get" class="woocommerce-product-search" action="{% url 'shop' %}">
+                                                    <label class="screen-reader-text" for="products2">Qidirish uchun:</label>
+                                                    <input type="search" id="products2" class="search-field" placeholder="Maxsulot qidirish&hellip;" value="" name="s"/>
                                                     <button type="submit" value="Search" class="">Qidirish</button>
-                                                    <input type="hidden" name="post_type" value="product"/>
+                                                    <!-- <input type="hidden" name="post_type" value="product"/> -->
                                                     <div class="base-search-icon-wrap">
                                                         <span class="base-svg-iconset">
                                                             <svg aria-hidden="true" class="base-svg-icon base-search-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28">
@@ -479,11 +479,11 @@
                             <div class="site-header-bottom-section-left site-header-section site-header-section-left">
                                 <div class="site-header-item site-header-focus-item" data-section="base_customizer_header_mobile_search_bar">
                                     <div class="header-mobile-search-bar header-item-search-bar">
-                                        <form role="search" method="get" class="woocommerce-product-search" action="">
+                                        <form role="search" method="get" class="woocommerce-product-search" action="{% url 'shop' %}">
                                             <label class="screen-reader-text" for="woocommerce-product-search-field-1">Qidirish uchun:</label>
-                                            <input type="search" id="woocommerce-product-search-field-1" class="search-field" placeholder="Search products&hellip;" value="" name="s"/>
+                                            <input type="search" id="products1" class="search-field" placeholder="Maxsulot qidirish&hellip;" value="" name="s"/>
                                             <button type="submit" value="Qidirish" class="">Qidirish</button>
-                                            <input type="hidden" name="post_type" value="product"/>
+                                            <!-- <input type="hidden" name="post_type" value="product"/> -->
                                             <div class="base-search-icon-wrap">
                                                 <span class="base-svg-iconset">
                                                     <svg aria-hidden="true" class="base-svg-icon base-search-svg" fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" width="26" height="28" viewBox="0 0 26 28">

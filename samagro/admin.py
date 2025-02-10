@@ -1,5 +1,5 @@
 from django.contrib import admin
-from samagro.models import ProductCategory, Products, ProductPicture, Users, Order, News
+from samagro.models import ProductCategory, Products, ProductPicture, Users, Order, News, Comments
 # Register your models here.
 
 
@@ -18,6 +18,7 @@ class ProductsAdmin(admin.ModelAdmin):
 
 admin.site.register(Users)
 admin.site.register(Order)
+admin.site.register(Comments)
 
 @admin.register(News) 
 class NewsAdmin(admin.ModelAdmin):

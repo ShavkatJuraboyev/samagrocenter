@@ -125,7 +125,6 @@ class Products(models.Model):
     def __str__(self):
             return self.name
 
-
 # Buyurtma modeli
 class Order(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name="Foydalanuvchi")
@@ -147,8 +146,6 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Buyurtma"
         verbose_name_plural = "Buyurtmalar"
-
-
 
 class News(models.Model):
     image = models.ImageField(upload_to='news/images/', null=True, blank=True, verbose_name="Sarlovha rasmi")
@@ -177,3 +174,17 @@ class News(models.Model):
         except News.DoesNotExist:
             pass
         super(News, self).save(*args, **kwargs)
+
+class Comments(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name="Foydalanuvchi", null=True)
+    products = models.ForeignKey("Products", on_delete=models.CASCADE, verbose_name="Maxsulotlar", null=True)
+    comment = models.TextField(null=True)
+    email = models.EmailField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan vaqt")
+
+    def __str__(self):
+        return f"Sharh {self.id} - {self.user}"
+    
+    class Meta:
+        verbose_name = "Sharh"
+        verbose_name_plural = "Sharhlar"

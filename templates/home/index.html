@@ -8,11 +8,6 @@
         {% include 'base/header.html' %}
 
         <div id="inner-wrap" class="wrap hfeed bst-clear">
-            <div class="side-mobile-toggle-open-container">
-                <button id="side-mobile-toggle" class="side-menu-toggle-open drawer-toggle">
-                    <span class="menu-toggle-icon">ochiq</span>
-                </button>
-            </div>
             <div id="primary" class="content-area">
                 <div class="content-container site-container">
                     <main id="main" class="site-main" role="main">
@@ -150,7 +145,7 @@
                                                                                             <div class="elementor-element elementor-element-f32ca9f elementor-absolute banner-button elementor-widget__width-auto elementor-widget elementor-widget-heading">
                                                                                                 <div class="elementor-widget-container">
                                                                                                     <span class="elementor-heading-title elementor-size-default">
-                                                                                                        <a href="#">Hozir xarid qiling</a>
+                                                                                                        <!-- <a href="#">Hozir xarid qiling</a> -->
                                                                                                     </span>
                                                                                                 </div>
                                                                                             </div>
@@ -203,13 +198,14 @@
                                                                                             </div>
                                                                                             <div class="elementor-element elementor-element-7e59f03 elementor-absolute elementor-widget__width-auto elementor-widget elementor-widget-heading">
                                                                                                 <div class="elementor-widget-container">
-                                                                                                    <span class="elementor-heading-title elementor-size-default">Peturshka</span>
+                                                                                                    <span class="elementor-heading-title elementor-size-default">Petrushka</span>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="elementor-element elementor-element-4aed000 elementor-absolute banner-button elementor-widget__width-auto elementor-widget elementor-widget-heading">
                                                                                                 <div class="elementor-widget-container">
                                                                                                     <span class="elementor-heading-title elementor-size-default">
-                                                                                                        <a href="#">Hozir xarid qiling</a></span>
+                                                                                                        <!-- <a href="#">Hozir xarid qiling</a> -->
+                                                                                                    </span>
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div class="elementor-element elementor-element-b918211 elementor-absolute elementor-widget__width-auto elementor-widget elementor-widget-heading">
@@ -263,7 +259,7 @@
                                                                                         <div class="elementor-icon-box-content">
                                                                                             <span class="elementor-icon-box-title">
                                                                                                 <span>
-                                                                                                    Bbepul yetkazib berish
+                                                                                                    Bepul yetkazib berish
                                                                                                 </span>
                                                                                             </span>
                                                                                             <p class="elementor-icon-box-description">Min 1 milon so'm*</p>
@@ -340,10 +336,12 @@
                                                                                             </span>
                                                                                         </div>
                                                                                         <div class="elementor-icon-box-content">
-                                                                                            <span class="elementor-icon-box-title">
-                                                                                                <span> 24/7 Onlayn Yordam </span>
-                                                                                            </span>
-                                                                                            <p class="elementor-icon-box-description"> Premium xizmat</p>
+                                                                                            <a href="https://t.me/shavkat_1199" target="_blank">
+                                                                                                <span class="elementor-icon-box-title">
+                                                                                                    <span> 24/7 Onlayn Yordam </span>
+                                                                                                </span>
+                                                                                                <p class="elementor-icon-box-description"> Premium xizmat</p>
+                                                                                            </a>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
@@ -672,8 +670,7 @@
                                                 </div>
                                             </section>
 
-                                            <section
-                                                class="elementor-section elementor-top-section elementor-element elementor-element-1a73747 deal-week elementor-section-boxed elementor-section-height-default elementor-section-height-default" >
+                                            <!-- <section class="elementor-section elementor-top-section elementor-element elementor-element-1a73747 deal-week elementor-section-boxed elementor-section-height-default elementor-section-height-default" >
                                                 <div class="elementor-container elementor-column-gap-default">
                                                     <div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-9dabd18" >
                                                         <div class="elementor-widget-wrap elementor-element-populated">
@@ -798,7 +795,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </section>
+                                            </section> -->
 
                                             <section class="elementor-section elementor-top-section elementor-element elementor-element-5a84dca elementor-section-boxed elementor-section-height-default elementor-section-height-default">
                                                 <div class="elementor-container elementor-column-gap-default">
@@ -823,24 +820,21 @@
                                                                                     <div class="elementor-shortcode">
                                                                                         <div id="blog-posts-products" class="blog-posts-content posts-content">
                                                                                             <div id="4_blog_carousel" class="slider blog-carousel">
-
+                                                                                                {% for new in news %}
                                                                                                 <div class="item container first latest-blog">
                                                                                                     <div class="container-inner loop-entry type-post">
                                                                                                         <a href="" class="post-thumbnail">
                                                                                                             <div class="post-thumbnail-inner">
-                                                                                                                <img  src="https://demos.coderplace.com/woo/WCM02/WCM02046/wp-content/uploads/2023/06/01-2.jpg" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet" alt="Nullam ullamcorper nisl quis ornare molestie saepe eveniet" height="300" width="433" />
+                                                                                                                <img  src="{{new.get_post_img}}" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet" alt="Nullam ullamcorper nisl quis ornare molestie saepe eveniet" height="300" width="433" />
                                                                                                             </div>
                                                                                                         </a>
                                                                                                         <div class="entry-content-wrap">
                                                                                                             <header class="entry-header">
                                                                                                                 <h4 class="entry-title">
-                                                                                                                    <a href="#" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet">Nullam ullamcorper nisl quis ornare saepe eveniet</a>
+                                                                                                                    <a href="#" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet">{{new.title}}</a>
                                                                                                                 </h4>
                                                                                                                 <div class="entry-meta entry-meta-divider-dot entry-meta-divider-vline entry-meta-divider-dash entry-meta-divider-slash">
-                                                                                                                    <span class="posted-by">
-                                                                                                                        <span class="author vcard">by Justin</span>
-                                                                                                                    </span>
-                                                                                                                    <span class="posted-on">06 June, 2023</span>
+                                                                                                                    <span class="posted-on">{{new.created_at}}</span>
                                                                                                                 </div>
                                                                                                             </header>
                                                                                                             <footer
@@ -849,7 +843,7 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
-
+                                                                                                {% endfor %}
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>

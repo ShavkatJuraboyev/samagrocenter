@@ -2,7 +2,8 @@ from django.urls import path
 from samagro.views import (
     home, shop, about, contact, shop_view, register, 
     verify_sms, checkout, profile, logout_view,
-    login_view, remove_from_cart, add_to_cart, cart
+    login_view, remove_from_cart, add_to_cart, cart,
+    resend_code
     )
 
 
@@ -29,4 +30,6 @@ urlpatterns = [
 
     path("add-to-cart/", add_to_cart, name="add_to_cart"),
     path('remove-from-cart/<int:product_id>/', remove_from_cart, name='remove_from_cart'),
+
+    path("resend-code/", resend_code, name="resend_code"),
 ]

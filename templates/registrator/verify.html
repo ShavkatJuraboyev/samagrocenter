@@ -15,7 +15,7 @@
                                 <div class="base-breadcrumb-container">
                                     <span>
                                         <a href="/" class="base-bc-home">
-                                            <span>Bosh saxifa</span>
+                                            <span>Bosh sahifa</span>
                                         </a>
                                     </span> 
                                     <span class="bc-delimiter">/</span> 
@@ -39,7 +39,7 @@
 
                                                 <div class="u-column1 col-1">
                                                     <h2>SMS kodni kiritng</h2>
-                                                    <form class="woocommerce-form woocommerce-form-login login" method="post">
+                                                    <form id="verifyForm" class="woocommerce-form woocommerce-form-login login" method="post">
                                                         {% csrf_token %}
                                                         <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                                             <label for="username">SMS kod&nbsp;
@@ -47,16 +47,80 @@
                                                             </label>
                                                             <input type="text" class="woocommerce-Input woocommerce-Input--text input-text" name="code" id="code" required>
                                                         </p>
-
+                                                
+                                                        <p id="timer" style="color: red; font-weight: bold;">60 soniya qoldi</p>
+                                                        
                                                         <p class="form-row">
-                                                            <button type="submit" class="woocommerce-button button woocommerce-form-login__submit">TAsdiqlash</button>
+                                                            <button type="submit" class="woocommerce-button button woocommerce-form-login__submit" id="verifyBtn">Tasdiqlash</button>
+                                                        </p>
+                                                        <p class="form-row">
+                                                            <button type="button" id="resendCodeBtn" class="woocommerce-button button" style="display: none;">Kod qayta yuborish</button>
                                                         </p>
                                                         <p class="woocommerce-LostPassword lost_password">
                                                             SMS kodni olishda muammo yuzaga keldi? <a href="{% url 'register' %}">Ro‘yxatdan o‘tish</a>
                                                         </p>
                                                     </form>
                                                 </div>
+                                                <script>
+                                                    let countdown = parseInt(localStorage.getItem("countdown")) || 60; // LocalStorage'dan saqlangan vaqtni o'qish yoki 60 ga sozlash
+                                                    const timerElement = document.getElementById("timer");
+                                                    const resendButton = document.getElementById("resendCodeBtn");
+                                                    const verifyButton = document.getElementById("verifyBtn");
 
+                                                    // Hisoblagichni yangilash funksiyasi
+                                                    function updateTimer() {
+                                                        if (countdown > 0) {
+                                                            timerElement.textContent = `${countdown} soniya qoldi`;
+                                                        } else {
+                                                            timerElement.textContent = "Tasdiqlash kodining muddati tugadi!";
+                                                            resendButton.style.display = "inline-block"; // Kodni qayta yuborish tugmasini ko‘rsatish
+                                                            verifyButton.disabled = true; // Tasdiqlash tugmasini o‘chirib qo‘yish
+                                                        }
+                                                    }
+
+                                                    // Hisoblagichni ishga tushirish funksiyasi
+                                                    function startCountdown() {
+                                                        const interval = setInterval(() => {
+                                                            countdown--;
+                                                            localStorage.setItem("countdown", countdown); // Vaqtni saqlash
+                                                            updateTimer();
+
+                                                            if (countdown <= 0) {
+                                                                clearInterval(interval);
+                                                            }
+                                                        }, 1000);
+                                                    }
+
+                                                    // Brauzer yangilanganidan so'ng vaqtni davom ettirish
+                                                    updateTimer();
+
+                                                    // Agar hali vaqt tugamagan bo‘lsa, hisoblagichni ishga tushirish
+                                                    if (countdown > 0) {
+                                                        startCountdown();
+                                                    }
+
+                                                    // Kodni qayta yuborish tugmasi bosilganda
+                                                    resendButton.addEventListener("click", function () {
+                                                        fetch("{% url 'resend_code' %}", {
+                                                            method: "POST",
+                                                            headers: {
+                                                                "X-CSRFToken": "{{ csrf_token }}"
+                                                            }
+                                                        }).then(response => {
+                                                            if (response.ok) {
+                                                                alert("Yangi kod yuborildi!");
+                                                                countdown = 60; // Hisoblagichni qayta boshlash
+                                                                localStorage.setItem("countdown", countdown); // LocalStorage'ni yangilash
+                                                                resendButton.style.display = "none"; // Tugmani yashirish
+                                                                verifyButton.disabled = false; // Tasdiqlash tugmasini faollashtirish
+                                                                startCountdown(); // Yangi hisoblagichni boshlash
+                                                            } else {
+                                                                alert("Xatolik yuz berdi. Iltimos, qayta urinib ko‘ring.");
+                                                            }
+                                                        });
+                                                    });
+                                                
+                                                </script>
                                             </div>
                                         </div>
                                     </div>

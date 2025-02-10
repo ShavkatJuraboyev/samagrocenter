@@ -19,7 +19,7 @@
                                 <div class="base-breadcrumb-container">
                                     <span>
                                         <a href="/" class="base-bc-home">
-                                            <span>Bosh saxifa</span>
+                                            <span>Bosh sahifa</span>
                                         </a>
                                     </span> 
                                     <span class="bc-delimiter">/</span> 
@@ -180,7 +180,7 @@
                                 </form>
                                 
 
-                                <div class="single-product-extras">
+                                <!-- <div class="single-product-extras">
                                     <p><strong>Free shipping on orders over $50!</strong></p>
                                     <ul>
                                         <li>
@@ -211,7 +211,7 @@
                                             </span> Secure Payments
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
                                 <div class="product_meta">
                                     <span class="posted_in">Kategoriyalar: 
@@ -228,7 +228,7 @@
                                         <a href="#tab-description"> Tavsif </a>
                                     </li>
                                     <li class="reviews_tab" id="tab-title-reviews" role="tab" aria-controls="tab-reviews">
-                                        <a href="#tab-reviews"> Sharhlar (2)</a>
+                                        <a href="#tab-reviews"> Sharhlar ({{comments.count}})</a>
                                     </li>
                                 </ul>
 
@@ -240,35 +240,10 @@
                                     <div id="reviews" class="woocommerce-Reviews">
                                         <div id="comments">
                                             <h2 class="woocommerce-Reviews-title">
-                                                Maxsulot nomi uchun 2 ta sharh</span>
+                                                {{product.name}}ga {{comments.count}} ta sharh</span>
                                             </h2>
                                             <ol class="commentlist">
-                                                <li class="review even thread-even depth-1" id="li-comment-11">
-                                                    <div id="comment-11" class="comment_container">
-                                                        <img alt="" src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g" height="60" width="60">
-                                                        <div class="comment-text">
-                                                            <div class="star" title="Rated 4 out of 5">
-                                                                <span style="width:80%">
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="fas fa-star"></i>
-                                                                    <i class="far fa-star"></i>
-                                                                </span>
-                                                            </div>
-                                                            <p class="meta">
-                                                                <strong class="woocommerce-review__author">
-                                                                    admin
-                                                                </strong>
-                                                                <span class="woocommerce-review__dash">–</span> 
-                                                                <time class="woocommerce-review__published-date">2025/02/09</time>
-                                                            </p>
-                                                            <div class="description">
-                                                                <p>Men bu bu pomidor urugini olib ekgan edim zo'r bo'ldi hammaga tavsiya etaman </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                {% for comment in comments %}
                                                 <li class="review odd alt thread-odd thread-alt depth-1" id="li-comment-12">
                                                     <div id="comment-12" class="comment_container">
                                                         <img alt="" src="https://secure.gravatar.com/avatar/75d23af433e0cea4c0e45a56dba18b30?s=60&amp;d=mm&amp;r=g" class="avatar  avatar-60 photo" height="60" width="60">
@@ -283,18 +258,19 @@
                                                                 </span>
                                                             </div>
                                                             <p class="meta">
-                                                                <strong class="woocommerce-review__author">admin
-                                                                </strong>
+                                                                <strong class="woocommerce-review__author">{{comment.user.first_name}}</strong>
                                                                 <span class="woocommerce-review__dash">–</span> 
-                                                                <time class="woocommerce-review__published-date" >2025/02/10 </time>
+                                                                <time class="woocommerce-review__published-date">{{comment.created_at}}</time>
                                                             </p>
-
                                                             <div class="description">
-                                                                <p>Men bu bu pomidor urugini olib ekgan edim zo'r bo'ldi hammaga tavsiya etaman </p>
+                                                                <p>{{comment.comment}}</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </li>
+                                                {% empty %}
+                                                <p>Hozircha hechqanday sharh yo'q</p>
+                                                {% endfor %}
                                             </ol>
                                         </div>
 
@@ -308,35 +284,15 @@
                                                             </a>
                                                         </small>
                                                     </span>
-                                                    <form method="post" id="commentform" class="comment-form">
+                                                    <form method="post" id="comments">
+                                                        {% csrf_token %}
                                                         <p class="comment-notes">
                                                             <span id="email-notes">Sizning elektron pochta manzilingiz nashr etilmaydi.</span> 
                                                             <span class="required-field-message">Majburiy maydonlar belgilang
                                                                 <span class="required">*</span>
                                                             </span>
+                                                            <input type="text" hidden name="product_id" value="{{product.id}}">
                                                         </p>
-                                                        <div class="comment-form-rating">
-                                                            <label for="rating">Sizning reytingingiz&nbsp;
-                                                                <span class="required">*</span>
-                                                            </label>
-                                                            <p class="stars"> 
-                                                                <span>
-                                                                    <i class="far fa-star"></i>
-                                                                    <i class="far fa-star"></i>
-                                                                    <i class="far fa-star"></i>
-                                                                    <i class="far fa-star"></i>
-                                                                    <i class="far fa-star"></i>
-                                                                </span>
-                                                            </p>
-                                                            <!-- <select name="rating" id="rating" required="" style="display: none;">
-                                                                <option value="">Rate…</option>
-                                                                <option value="5">Perfect</option>
-                                                                <option value="4">Good</option>
-                                                                <option value="3">Average</option>
-                                                                <option value="2">Not that bad</option>
-                                                                <option value="1">Very poor</option>
-                                                            </select> -->
-                                                        </div>
                                                         <p class="comment-form-comment">
                                                             <label for="comment">Sizning sharhingiz&nbsp;
                                                                 <span class="required">*</span>
@@ -347,7 +303,7 @@
                                                             <label for="author">Ism&nbsp;
                                                                 <span class="required">*</span>
                                                             </label>
-                                                            <input id="author" name="author" type="text" value="" size="30" required="">
+                                                            <input id="author" name="author" type="text" value="{{request.user.first_name}}" size="30" readonly>
                                                         </p>
                                                         <p class="comment-form-email">
                                                             <label for="email">Email&nbsp;
@@ -402,12 +358,10 @@
                             <section class="related products">
                                 <h2>Tegishli mahsulotlar</h2>
                                 <ul class="products content-wrap product-archive grid-cols grid-ss-col-2 grid-sm-col-3 grid-lg-col-4 woo-archive-action-visible woo-archive-btn-button woo-archive-image-hover-fade owl-carousel owl-theme" >
-                                    <div class="owl-wrapper-outer">
-                                        <div class="owl-wrapper">
-                                            {% for related in related_products %}
-                                            <div class="owl-item" style="width: 306px;">
-                                                <li class="entry content-bg loop-entry product type-product post-705 status-publish first instock product_cat-power-tools product_cat-blades product_cat-cutting-tools product_cat-hand-tools product_cat-pressure-washers product_cat-safety-workwear has-post-thumbnail featured shipping-taxable purchasable product-type-variable has-default-attributes">
-                                                    <div class="product-thumbnail">
+                                    {% for related in related_products %}
+                                    <div class="owl-item" style="width: 306px;">
+                                        <li class="entry content-bg loop-entry product type-product post-705 status-publish first instock product_cat-power-tools product_cat-blades product_cat-cutting-tools product_cat-hand-tools product_cat-pressure-washers product_cat-safety-workwear has-post-thumbnail featured shipping-taxable purchasable product-type-variable has-default-attributes">
+                                            <div class="product-thumbnail">
                                                         <div class="archive-image-wrap">
                                                             <div class="archive-extra-button-wrap">
                                                                 <button class="woosw-btn woosw-btn-11284 woosw-btn-has-icon woosw-btn-icon-only">
@@ -423,15 +377,15 @@
                                                             <a href="{% url 'shop_view' related.id %}" class="woocommerce-loop-image-link woocommerce-LoopProduct-link woocommerce-loop-product__link product-has-hover-image">
                                                                 {% for image in related.images.all|slice:":2" %}
                                                                 {% if forloop.counter == 1 %}
-                                                                <img width="242" height="242" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" >
+                                                                <img style="height: 250px;" src="{{ image.get_produc_img  }}" class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail" alt="" >
                                                                 {% elif forloop.counter == 2 %}
                                                                 <img width="242" height="242" src="{{ image.get_produc_img  }}" class="secondary-product-image attachment-woocommerce_thumbnail attachment-shop-catalog wp-post-image wp-post-image--secondary" alt="" title="a2">
                                                                 {% endif %}
                                                                 {% endfor %}
                                                             </a>
                                                         </div>
-                                                    </div>
-                                                    <div class="product-details content-bg entry-content-wrap">
+                                            </div>
+                                            <div class="product-details content-bg entry-content-wrap">
                                                         <h2 class="woocommerce-loop-product__title">
                                                             <a href="{% url 'shop_view' related.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{related.name}}</a>
                                                         </h2>
@@ -482,12 +436,10 @@
                                                                 Tanlash
                                                             </a>
                                                         </div>
-                                                    </div>
-                                                </li>
                                             </div>
-                                            {% endfor %}
-                                        </div>
+                                        </li>
                                     </div>
+                                    {% endfor %}
                                 </ul>
                             </section>
                         </div>

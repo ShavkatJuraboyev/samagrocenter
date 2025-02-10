@@ -2,11 +2,12 @@ import random
 import time
 import json
 from django.http import JsonResponse
-from samagro.models import ProductCategory, Products, Users, Order
+from samagro.models import ProductCategory, Products, Users, Order, News, Comments
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from samagro.utils import send_sms
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib import messages
@@ -36,7 +37,7 @@ def register(request):
         )
 
         request.session["user_phone"] = phone
-        verification_code = random.randint(1000, 9999)
+        verification_code = random.randint(100000, 999999)
         request.session["verification_code"] = verification_code
         request.session["verification_time"] = time.time()
 
@@ -45,7 +46,6 @@ def register(request):
         return redirect("verify")
 
     return render(request, "registrator/register.html")
-
 
 # SMS kodni tasdiqlash
 def verify_sms(request):
@@ -56,9 +56,9 @@ def verify_sms(request):
         verification_time = request.session.get("verification_time")
 
         # 5 daqiqadan keyin kod eskirgan bo‘ladi
-        if time.time() - verification_time > 300:
+        if time.time() - verification_time > 60:
             messages.error(request, "Tasdiqlash kodining muddati tugagan. Iltimos, qaytadan urinib ko‘ring!")
-            return redirect("register")
+            return redirect("verify")
 
         if entered_code and entered_code.isdigit() and int(entered_code) == verification_code:
             User = get_user_model()
@@ -78,6 +78,18 @@ def verify_sms(request):
 
     return render(request, "registrator/verify.html")
 
+def resend_code(request):
+    if request.method == "POST":
+        user_phone = request.session.get("user_phone")
+        verification_code = random.randint(100000, 999999)  # Yangi tasdiqlash kodi
+        request.session["verification_code"] = verification_code
+        request.session["verification_time"] = time.time()
+
+        # SMS API orqali yangi kodni yuborish (Eskiz, Twilio va boshqalar)
+        send_sms(user_phone, verification_code)
+
+        return JsonResponse({"message": "Kod yuborildi"}, status=200)
+    return JsonResponse({"error": "Noto‘g‘ri so‘rov"}, status=400)
 
 # Tizimga kirish (Telefon raqam orqali)
 def login_view(request):
@@ -92,7 +104,7 @@ def login_view(request):
             return render(request, "registrator/login.html")
 
         # Tasdiqlash kodi yuborish
-        verification_code = random.randint(1000, 9999)
+        verification_code = random.randint(100000, 999999)
         request.session["verification_code"] = verification_code
         request.session["user_phone"] = phone
         request.session["verification_time"] = time.time()
@@ -103,7 +115,6 @@ def login_view(request):
 
     return render(request, "registrator/login.html")
 
-
 @login_decorator
 def logout_view(request):
     logout(request)  # Django's logout() function
@@ -112,7 +123,6 @@ def logout_view(request):
 @login_decorator
 def profile(request):
     return render(request, "registrator/profile.html", {"user": request.user})
-
 
 def add_to_cart(request):
     if request.method == "POST":
@@ -158,13 +168,11 @@ def add_to_cart(request):
 
     return JsonResponse({"status": "error", "message": "Noto‘g‘ri so‘rov"}, status=400)
 
-
 def remove_from_cart(request, product_id):
     cart = request.session.get("cart", [])
     cart = [item for item in cart if item["id"] != str(product_id)]
     request.session["cart"] = cart
     return JsonResponse({"status": "success", "cart": cart})
-
 
 def home(request):
     product_categorys = ProductCategory.objects.filter(parent__isnull=True).prefetch_related('children').order_by('id')
@@ -187,11 +195,13 @@ def home(request):
         })
     # Sessiondagi savatchani olish
     cart = request.session.get("cart", [])
+    news = News.objects.all().order_by('-id')[:4]
     context = {
         "product_categorys":product_categorys,
         "new_products":new_products,
         "discount_products":discount_products,
         'cart':cart,
+        "news":news,
         'categories_with_counts': categories_with_counts,  # Yangilangan kontekst
     }
     return render(request, 'home/index.html', context=context)
@@ -199,7 +209,7 @@ def home(request):
 def shop(request):
     product_categorys = ProductCategory.objects.filter(parent__isnull=True).prefetch_related('children').order_by('id')
     category_ids = request.GET.getlist('category_id')  # Bir nechta kategoriya ID olamiz
-
+    query = request.GET.get('s', '')  # Qidiruv uchun so'rov
     if category_ids:
         all_category_ids = []  # Barcha tanlangan kategoriya va ularning bolalarini saqlash
 
@@ -222,6 +232,12 @@ def shop(request):
     else:
         products = Products.objects.all().order_by('-id')  # Agar kategoriya tanlanmasa, barcha mahsulotlarni chiqaramiz
 
+    if query:
+        products = products.filter(
+            Q(productcategory__name__icontains=query) |  # ForeignKey orqali bog‘langan modeldagi `name` maydonida qidirish
+            Q(name__icontains=query)  # Mahsulot nomida qidirish
+        )
+
 
     paginator = Paginator(products, 20)  # Har bir sahifada 5 ta yangilik
     page_number = request.GET.get('page')
@@ -240,18 +256,43 @@ def shop(request):
 def shop_view(request, pk):
     product_categorys = ProductCategory.objects.filter(parent__isnull=True).prefetch_related('children').order_by('id')
     product = Products.objects.filter(id=pk).first()
+    comments = Comments.objects.filter(products_id=pk).order_by('-id')
+
+
+    if request.method == "POST":
+        comment_text = request.POST.get("comment")
+        product_id = request.POST.get("product_id")
+        email = request.POST.get("email")
+
+        if comment_text and product_id:  # Bo‘sh ma’lumotlarni oldini olish
+            Comments.objects.create(
+                user=request.user,
+                products_id=product_id,  # `.id` kerak bo‘ladi
+                comment=comment_text,
+                email=email,
+            )
 
     related_products = []
     if product and product.productcategory:
         category = product.productcategory
         all_category_ids = [category.id]
 
-        def get_all_child_categories(cat):
+        # Barcha ota va bolalar kategoriyalarini olish uchun rekursiv funksiya
+        def get_all_related_categories(cat):
+            # Bolalar kategoriyalarini olish
             for child in cat.children.all():
-                all_category_ids.append(child.id)
-                get_all_child_categories(child)
+                if child.id not in all_category_ids:
+                    all_category_ids.append(child.id)
+                    get_all_related_categories(child)
+            
+            # Ota kategoriyalarini olish
+            if cat.parent and cat.parent.id not in all_category_ids:
+                all_category_ids.append(cat.parent.id)
+                get_all_related_categories(cat.parent)
 
-        get_all_child_categories(category)
+        get_all_related_categories(category)
+
+        # Ushbu kategoriyalarga tegishli mahsulotlarni olish
         related_products = Products.objects.filter(productcategory_id__in=all_category_ids).exclude(id=pk)
 
     # Sessiondagi savatchani olish
@@ -261,6 +302,7 @@ def shop_view(request, pk):
         'product': product,
         'related_products': related_products,
         'cart':cart,
+        "comments":comments,
     }
     return render(request, 'home/shop_view.html', context=context)
 
@@ -331,22 +373,4 @@ def checkout(request):
         'product_categorys': product_categorys,
     }
     return render(request, "home/confirm_order.html", context)
-
-
-
-# def confirm_order(request):
-#     if request.method == "POST":
-#         entered_code = request.POST.get("code")
-#         verification_code = request.session.get("order_verification_code")
-
-#         if int(entered_code) == verification_code:
-#             order = Order.objects.filter(user=request.user, status="pending").last()
-#             order.status = "confirmed"
-#             order.save()
-#             return redirect("order_success")
-
-#         return render(request, "confirm_order.html", {"error": "Kod noto‘g‘ri!"})
-
-#     return render(request, "home/confirm_order.html")
-
 
