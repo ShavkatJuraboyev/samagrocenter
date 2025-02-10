@@ -570,7 +570,7 @@
                                                                                                             </div>
                                                                                                             <div class="product-details content-bg entry-content-wrap">
                                                                                                                 <h2  class="woocommerce-loop-product__title">
-                                                                                                                    <a href="{% url 'shop_view' new_product.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{new_product.name}}</a>
+                                                                                                                    <a href="{% url 'shop_view' new_product.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{new_product.name|truncatechars:24 }}</a>
                                                                                                                 </h2>
                                                                                                                 <div class="star" title="Rated 4.00 out of 5">
                                                                                                                     <span style="width:80%">
@@ -831,7 +831,7 @@
                                                                                                         <div class="entry-content-wrap">
                                                                                                             <header class="entry-header">
                                                                                                                 <h4 class="entry-title">
-                                                                                                                    <a href="#" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet">{{new.title}}</a>
+                                                                                                                    <a href="#" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet">{{new.title|truncatechars:45}}</a>
                                                                                                                 </h4>
                                                                                                                 <div class="entry-meta entry-meta-divider-dot entry-meta-divider-vline entry-meta-divider-dash entry-meta-divider-slash">
                                                                                                                     <span class="posted-on">{{new.created_at}}</span>

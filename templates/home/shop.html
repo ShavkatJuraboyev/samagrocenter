@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="product-details content-bg entry-content-wrap">
                                     <h2 class="woocommerce-loop-product__title">
-                                        <a href="{% url 'shop_view' product.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{product.name}}</a>
+                                        <a href="{% url 'shop_view' product.id %}" class="woocommerce-LoopProduct-link-title woocommerce-loop-product__title_ink">{{product.name|truncatechars:26}}</a>
                                     </h2>
                                     <span class="price">
                                         <span class="woocommerce-Price-amount amount">
