@@ -336,7 +336,7 @@
                                                                                             </span>
                                                                                         </div>
                                                                                         <div class="elementor-icon-box-content">
-                                                                                            <a href="https://t.me/shavkat_1199" target="_blank">
+                                                                                            <a href="https://t.me/sam_agro_call_center" target="_blank">
                                                                                                 <span class="elementor-icon-box-title">
                                                                                                     <span> 24/7 Onlayn Yordam </span>
                                                                                                 </span>
@@ -823,7 +823,7 @@
                                                                                                 {% for new in news %}
                                                                                                 <div class="item container first latest-blog">
                                                                                                     <div class="container-inner loop-entry type-post">
-                                                                                                        <a href="" class="post-thumbnail">
+                                                                                                        <a href="{{new.files.url}}" class="post-thumbnail">
                                                                                                             <div class="post-thumbnail-inner">
                                                                                                                 <img  src="{{new.get_post_img}}" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet" alt="Nullam ullamcorper nisl quis ornare molestie saepe eveniet" height="300" width="433" />
                                                                                                             </div>
@@ -831,7 +831,7 @@
                                                                                                         <div class="entry-content-wrap">
                                                                                                             <header class="entry-header">
                                                                                                                 <h4 class="entry-title">
-                                                                                                                    <a href="#" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet">{{new.title|truncatechars:45}}</a>
+                                                                                                                    <a href="{{new.files.url}}" title="Nullam ullamcorper nisl quis ornare molestie saepe eveniet">{{new.title|truncatechars:45}}</a>
                                                                                                                 </h4>
                                                                                                                 <div class="entry-meta entry-meta-divider-dot entry-meta-divider-vline entry-meta-divider-dash entry-meta-divider-slash">
                                                                                                                     <span class="posted-on">{{new.created_at}}</span>

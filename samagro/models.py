@@ -153,6 +153,7 @@ class News(models.Model):
     text = models.CharField(max_length=500, null=True, help_text="Sarlavha matini maksimal 500 belgi", verbose_name="Sarlovha matini")
     content = RichTextUploadingField(config_name='extends', verbose_name="Sarlovha umumiy matini", null=True, blank=True)
     created_at = models.DateTimeField(null=True, blank=True, default=now)
+    files = models.FileField(upload_to="file/", null=True, blank=True, verbose_name="Fayl")
 
     class Meta:
         verbose_name = "Yangilik"
@@ -180,7 +181,7 @@ class Comments(models.Model):
     products = models.ForeignKey("Products", on_delete=models.CASCADE, verbose_name="Maxsulotlar", null=True)
     comment = models.TextField(null=True)
     email = models.EmailField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Yaratilgan vaqt")
+    created_at = models.DateTimeField(default=now, null=True, blank=True, verbose_name="Yaratilgan vaqt")
 
     def __str__(self):
         return f"Sharh {self.id} - {self.user}"

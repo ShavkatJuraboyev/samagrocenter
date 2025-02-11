@@ -14,6 +14,7 @@ admin.site.register(ProductPicture)
 @admin.register(Products)  
 class ProductsAdmin(admin.ModelAdmin): 
     list_display = ('name', 'price', 'created_at')  
+    search_fields =('name',)
 
 
 admin.site.register(Users)
@@ -24,8 +25,3 @@ admin.site.register(Comments)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at',)
     search_fields = ('title', )  # Qidiruv maydonlari
-    fieldsets = (
-        ('Umumiy maʼlumotlar', {
-            'fields': ('image', 'title', 'text', 'content'),
-        }),
-    )
