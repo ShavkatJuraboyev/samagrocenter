@@ -28,10 +28,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = ["www.samagrocenter.uz", "samagrocenter.uz", "172.20.20.16", "127.0.0.1", "localhost"]
 
-CSRF_TRUSTED_ORIGINS = ['https://samagrocenter.uz', 'https://www.samagrocenter.uz']
+CSRF_TRUSTED_ORIGINS = ['http://samagrocenter.uz','http://www.samagrocenter.uz']
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
