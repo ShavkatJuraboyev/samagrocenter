@@ -26,7 +26,8 @@ def register(request):
 
         User = get_user_model()
         if User.objects.filter(phone=phone).exists():
-            return render(request, "registrator/register.html", {"error": "Bu telefon raqam allaqachon mavjud!"})
+            messages.error(request, "Bu telefon raqam allaqachon mavjud!")  # Xatolik xabari
+            return render(request, "registrator/register.html")
 
         # Foydalanuvchini yaratish
         user = User.objects.create_user(
@@ -43,16 +44,18 @@ def register(request):
 
         send_sms(phone, verification_code)
 
+        messages.success(request, "Ro‘yxatdan o‘tish muvaffaqiyatli! Kod yuborildi.")  # Muvaffaqiyat xabari
         return redirect("verify")
 
     return render(request, "registrator/register.html")
+
 
 # SMS kodni tasdiqlash
 def verify_sms(request):
     if request.method == "POST":
         user_phone = request.session.get("user_phone")
         entered_code = request.POST.get("code")
-        verification_code = request.session.get("verification_code")
+        # verification_code = request.session.get("verification_code")
         verification_time = request.session.get("verification_time")
 
         # 5 daqiqadan keyin kod eskirgan bo‘ladi
@@ -67,7 +70,7 @@ def verify_sms(request):
             user.save()
             login(request, user)
 
-            del request.session["verification_code"]
+            # del request.session["verification_code"]
             del request.session["verification_time"]
             del request.session["user_phone"]
 

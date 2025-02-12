@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             fetch("/add-to-cart/", {
                 method: "POST",
-                headers: {
+                headers: { 
                     "X-CSRFToken": csrfToken,
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
